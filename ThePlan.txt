@@ -1,0 +1,22 @@
+Use Cases:
+Admin->
+1)Create Co-Admin
+2)Look up Users info
+3)Look up events with all registered clients listed
+4)Add/Remove Clients from events
+	-Send notification when removed from event
+5) user case 5-6 w but with admin controls
+
+
+User->
+1)Register
+2)Register for event
+	-Make payment
+	-Receive email notification with receipt
+3)Delete Account
+4)Update Account
+5) look at all registered participants
+6) look at all registered contestants for given event and category
+
+logic:
+sever -> when adding participants check gender and valid age group

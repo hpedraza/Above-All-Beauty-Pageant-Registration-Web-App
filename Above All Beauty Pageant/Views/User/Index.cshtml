@@ -1,0 +1,118 @@
+﻿@model Above_All_Beauty_Pageant.ViewModels.ParticipantIndexViewModel
+@{
+    ViewBag.Title = "Welcome to Above All Beauty Pageant " + User.Identity.Name;
+}
+<!-- Need to create 1) Event details view 2) participant details view -->
+<h2>Welcome @User.Identity.Name</h2>
+<div id="add-participant"></div>
+<div id="view-upcoming-events"></div>
+
+@if (Model.Participants.Count() > 0)
+{
+    <table class="table table-striped table-hover table-responsive table-condensed">
+        <thead>
+            <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Age Group</td>
+                <td>Gender</td>
+                <td>Event</td>
+                <td>Registered</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var participant in Model.Participants)
+            {
+                <tr>
+                    <td>
+                        @participant.FirstName
+                    </td>
+                    <td>
+                        @participant.LastName
+                    </td>
+                    <td>
+                        @participant.AgeGroupDataAnnotation
+                    </td>
+                    <td>
+                        @participant.Gender
+                    </td>
+                    <td>
+                        @participant.EventName               
+                    </td>
+                    <td>
+                        @if (participant.Paid == false)
+                        {
+                            using (Html.BeginForm("Payment", "User", FormMethod.Get))
+                            {
+                                <input type="hidden" value="@participant.Id" name="id">
+                                <input type="submit"  class="btn btn-success" id="render-payment-form" value="Register" />
+                                <input type="button" data-participant="@participant.Id" class="btn btn-danger" value="Remove" />
+                            }
+
+                        }
+                        else
+                        {
+                            <input type="button" class="btn btn-primary" data-event="@participant.EventName" value="Event Details" />
+                        }
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h3>Add Participant</h3>
+@using (Html.BeginForm("AddParticipant", "User", FormMethod.Post, new { id = "add-participant-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddParticipant.FirstName)
+        @Html.TextBoxFor(m => m.AddParticipant.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.AddParticipant.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddParticipant.LastName)
+        @Html.TextBoxFor(m => m.AddParticipant.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.AddParticipant.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddParticipant.EventName)
+
+        @Html.DropDownListFor(m => m.AddParticipant.EventName,
+                                    new SelectList(Model.EventNames),
+                                    "-- Event to Attend --",
+                                    new { id = "event-drop-down-list" })
+
+
+        @Html.ValidationMessageFor(m => m.AddParticipant.EventName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddParticipant.Gender) <br />
+        @Html.RadioButtonFor(m => m.AddParticipant.Gender, "Male" )Male <br />
+        @Html.RadioButtonFor(m => m.AddParticipant.Gender, "Female")Female
+        @Html.ValidationMessageFor(m => m.AddParticipant.Gender)
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddParticipant.AgeGroup)
+        @*Left off here going to create empty dropdown or generate and compare*@
+        @Html.DropDownListFor(
+                  a => a.AddParticipant.AgeGroup, new SelectList(new List<object> { })
+        )
+
+        @Html.ValidationMessageFor(m => m.AddParticipant.AgeGroup)
+    </div>
+
+
+    <input type="submit" class="btn btn-success" id="js-add-participant-button" value="Add Participant" disabled/>
+}
+
+
+
+
+
+

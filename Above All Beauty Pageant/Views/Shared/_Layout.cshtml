@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700|Comfortaa:400|Lora:400|Quicksand:400' rel='stylesheet' type='text/css'>
+
+
+    <!-- Stripe.js -->
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+        Stripe.setPublishableKey('pk_test_lkTTBQiGmXaLR5vQqDdt3zzM');
+    </script>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <header class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle navbar-fixed-bottom " data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="~/Home/Index"><img src="~/Images/Website Imgs/logo.png" id="logo" /></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right ">
+                    <li><a href="#home-jumbotron">Home</a></li>
+                    <li><a href="#upcoming">Upcoming Events</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </header>
+    <pm-app></pm-app>
+    <section id="body">
+        @RenderBody()
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Above All Beauty Pageant | All Rights Reserved </p>
+
+            <div>
+                <p>
+                    <span>Contact us</span><br />
+                    Phone #: 956-325-6905 <br />
+                    Location: 5205 S. Veterans Blvd, Edinburg TX <br />
+                    Email: aboveallbabypageant@yahoo.com
+                </p>
+
+
+            </div>
+            <div id="social-media-links">
+                <p style="font-weight: 700;">Follow us on Facebook</p>
+                <a href="https://www.facebook.com/search/1694306310843454/local_search?surface=tyah">
+                    <img src="~/Images/Website Imgs/fb-logo.png" />
+                </a>
+            </div>
+
+        </footer>
+    </section>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

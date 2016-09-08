@@ -1,0 +1,12 @@
+﻿#add-participant-form{
+    margin-left: 55px;
+}
+
+#add-participant-form > div > input{
+    margin-top: 10px;
+}
+
+#add-participant-form > div:nth-child(5) , #add-participant-form> div:nth-child(6){
+   display: none;
+}
+

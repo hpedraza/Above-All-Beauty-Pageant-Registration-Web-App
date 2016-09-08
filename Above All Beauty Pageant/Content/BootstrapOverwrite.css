@@ -1,0 +1,22 @@
+﻿.navbar-inverse {
+    background-color: rgba(148, 97, 142, 1)
+}
+.navbar-nav > li {
+    font-size: 16px
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+    font-family: quicksand
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #49274a
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #49274a
+}
+.navbar-inverse .navbar-toggle {
+    border-color: #49274a
+}

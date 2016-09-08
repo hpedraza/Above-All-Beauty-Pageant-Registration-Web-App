@@ -1,0 +1,296 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px
+}
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px
+}
+.dl-horizontal dt {
+    white-space: normal
+}
+input,
+select,
+textarea {
+    max-width: 280px
+}
+#logo {
+    max-width: 275px;
+    max-height: 120px;
+    position: absolute;
+    top: -25px;
+    left: -28px
+}
+#home-jumbotron {
+    background-color: #49274A;
+    color: white;
+    margin-bottom: 0;
+    border-bottom: 2px solid #94618e
+}
+#home-jumbotron > h1 {
+    font-family: dancing script, 'Script MT';
+    border-bottom: 1px solid #94618e
+}
+#home-jumbotron > h4 {
+    font-family: comfortaa, 'Script MT'
+}
+#fb-like {
+    float: right;
+    display: block;
+    padding-top: 15px
+}
+#fb-like > p {
+    padding-left: 15px;
+    font-family: dancing script, 'Script MT';
+    font-weight: 700;
+    font-size: 22px
+}
+#home-flex-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 15px 0px;
+    align-items: flex-start
+}
+#home-slideshow-flex-item,
+#home-flex-item {
+    border: 2px solid #94618e
+}
+#home-flex-item {
+    background-color: #f8EEE7;
+    padding: 0px 15px 15px 15px;
+    width: 50%
+}
+#home-flex-item > h1 {
+    font-family: dancing script, 'Script MT';
+    font-weight: 700;
+    border-bottom: 1px solid black
+}
+#home-flex-item > div > p {
+    font-family: 'Times New Roman', 'Script MT';
+    font-size: 17.5px
+}
+.quoter {
+    font-size: 1.19em;
+    font-family: Aparajita;
+    display: block;
+    padding-bottom: 3px
+}
+#upcoming {
+    background-color: #94618e;
+    color: white;
+    position: relative;
+    z-index: -2;
+    padding-bottom: 10px;
+    border-top: 2.5px solid #49274a;
+    border-bottom: 2.5px solid #49274a
+}
+#upcoming > .upcoming-header > .highlight-orange {
+    font-family: comfortaa;
+    color: orange;
+    font-weight: 700;
+    text-shadow: 0px 0.95px black;
+    display: inline-block
+}
+#upcoming > .upcoming-header,
+.upcoming-location-header {
+    font-family: comfortaa;
+    padding-top: 15px;
+    margin-top: 0px;
+    text-shadow: 0px 0.95px black;
+    color: white
+}
+.upcoming-information-headers {
+    font-family: dancing script, 'Script MT';
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0px 0.95px black
+}
+#age-categories {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: #49274a;
+    font-family: lora
+}
+#age-categories > div > p,
+#pricing > div > ul > li,
+#pricing > .pricing-p {
+    font-family: comfortaa
+}
+#spooky-img {
+    left: 0;
+    right: 0;
+    top: -32.5px;
+    margin: 0 auto;
+    position: absolute;
+    z-index: -1;
+    width: 300px
+}
+#competition-list {
+    display: table;
+    margin: 0 auto
+}
+#halloween-beauty-pageant,
+#extra-photo-p {
+    text-align: center
+}
+#about-above-all,
+#above-all-highlighting {
+    font-family: Aparajita
+}
+#headquarters {
+    background-color: #f8EEE7;
+    border: 2px solid #94618e;
+    padding: 27.25px 25px 25px 25px;
+    margin: 27.25px 25px 25px 25px
+}
+#about-above-all {
+    font-size: 1.43em
+}
+#above-all-highlighting {
+    display: inline-block;
+    font-size: 1.3em
+}
+#above-all-location-info > p:nth-child(1) {
+    font-family: dancing script, 'Script MT';
+    font-size: 40px;
+    font-weight: 700;
+    color: #49274A;
+    text-shadow: 0px 0.95px #94618e
+}
+#above-all-location-info > p:nth-child(2) {
+    font-family: comfortaa;
+    font-size: 16px
+}
+#coordinators {
+    text-align: center
+}
+.coordinators-desc {
+    font-family: dancing script, 'Script MT';
+    color: #49274a;
+    font-size: 28px
+}
+#coordinators > div > img {
+    border-radius: 100%;
+    width: 200px;
+    height: 200px
+}
+#mapUpcoming {
+    width: 500px;
+    height: 380px;
+    margin: 0 auto
+}
+#sponsored-by {
+    background-color: #94618e;
+    border-top: 2px#49274a solid;
+    text-align: center
+}
+#sponsored-by > div:nth-child(1) {
+    display: inline-block;
+    font-family: comfortaa;
+    font-size: 45px;
+    color: white;
+    text-shadow: 0px 0.95px black
+}
+#sponsor-logos {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    align-items: center
+}
+#sponsor-logos > a {
+    margin: 20px auto;
+    width: 250px
+}
+#sponsor-logos > a > img {
+    width: 62.5%;
+    border-radius: 2%
+}
+footer {
+    background-color: #49274A;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap-reverse;
+    align-items: flex-end;
+    padding-top: 15px;
+    border-top: 1px solid #f8EEE7;
+    font-family: Arial;
+    text-shadow: 0px 1.2px black
+}
+footer > div > p > span {
+    font-weight: 700
+}
+footer > div,
+footer > p {
+    padding-bottom: 15px
+}
+footer > div:nth-child(3) {
+    text-align: center
+}
+footer > div > a > img {
+    border-radius: 15%;
+    width: 21%
+}
+@media screen and (max-width: 722px) {
+    #home-flex-item {
+        background-color: #f8EEE7;
+        border: 1px solid #94618e;
+        padding: 0px 15px 15px 15px;
+        width: 100%
+    }
+    #home-flex-box {
+        padding-top: 0px;
+        padding-bottom: 0px
+    }
+}
+@media (min-width: 500px)and (max-width: 678px) {
+    #mapUpcoming {
+        width: 350px;
+        height: 300px
+    }
+}
+@media (min-width: 405px)and (max-width: 499px) {
+    #mapUpcoming {
+        width: 255px
+    }
+}
+@media (min-width: 0px)and (max-width: 404px) {
+    #mapUpcoming {
+        width: 215px
+    }
+    #about-above-all {
+        font-size: 1.2em;
+        font-weight: 700
+    }
+}
+@media (min-width: 1000px) {
+    #coordinators > div > img {
+        width: 250px;
+        height: 250px
+    }
+}
+@media (min-width: 670px)and (max-width: 873px) {
+    footer {
+        flex-flow: column-reverse;
+        align-items: center
+    }
+}
+@media (min-width: 1085px) {
+    #sponsor-logos > a > img {
+        width: 82.5%;
+        border-radius: 2%
+    }
+}
+@media screen and (max-width: 569px) {
+    #headquarters {
+        margin: 27.25px 5px 20px 5px
+    }
+}
+
+
+

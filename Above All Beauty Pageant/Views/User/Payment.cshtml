@@ -1,7 +1,106 @@
-﻿
+﻿@model Above_All_Beauty_Pageant.ViewModels.ParticipantViewModel
 @{
     ViewBag.Title = "Payment";
 }
 
 <h2>Payment</h2>
+@using (Html.BeginForm("Payment", "User", FormMethod.Post, new { id = "payment-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(p => p.Id)
+    <div id="payment-div">
+        <span class="payment-errors"></span>
+        <div class="form-group">
+            <label>
+                <span>Credit Card Number</span>
+                <input type="text" maxlength="20"  class="form-control" size="20" data-stripe="number" required>
+            </label>
+        </div>
 
+        <div class="form-group">
+            <label>
+                <span>Cardholder's Name</span>
+                <input type="text" class="form-control"  data-stripe="name" required>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span>Card Expiration (MM/YY)</span> 
+            </label><br />
+            <input type="text" size="2" maxlength="2" class="form-control" data-stripe="exp_month" required>
+            <span> / </span>
+            <input type="text" size="2" maxlength="2" class="form-control"  data-stripe="exp_year" required>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span>Street</span>
+                <input type="text" class="form-control"  data-stripe="address_line1" required>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span>Zip Code</span>
+                <input type="number" size="5"  maxlength="5"   class="form-control" data-stripe="address_zip" required>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <span>Security Code on Card (CVV)</span>
+                <input type="text" size="4" class="form-control" maxlength="4" data-stripe="cvc" required>
+            </label>
+        </div>
+
+        <input type="submit" class="submit btn btn-success" value="Pay $90 to Register" required>
+    </div>
+}
+<form action="Payment" method="POST" id="payment-form">
+
+</form>
+
+
+@section Scripts
+{
+<script>
+    $(document).ready(function () {
+            var $form = $('#payment-form');
+            $form.submit( (event) => {
+                // Disable the submit button to prevent repeated clicks:
+                $form.find('.submit').prop('disabled', true);
+
+                // Request a token from Stripe:
+                Stripe.card.createToken($form, stripeResponseHandler);
+
+                // Prevent the form from being submitted:
+                return false;
+            });
+
+            const stripeResponseHandler = (status, response) => {
+                // Grab the form:
+                var $form = $('#payment-form');
+
+                if (response.error) { // Problem!
+
+                    // Show the errors on the form:
+                    $form.find('.payment-errors').text(response.error.message);
+                    $form.find('.submit').prop('disabled', false); // Re-enable submission
+
+                } else { // Token was created!
+
+                    // Get the token ID:
+                    var token = response.id;
+
+                    // Insert the token ID into the form so it gets submitted to the server:
+                    $form.append($('<input type="hidden" name="stripeToken">').val(token));
+
+                    // Submit the form:
+                    $form.get(0).submit();
+                }
+            };
+    });
+</script>
+    
+    }

@@ -33,7 +33,8 @@ namespace Above_All_Beauty
                       "~/Content/site.css",
                       "~/Content/BootstrapOverwrite.css",
                       "~/Content/carousel.css",
-                      "~/Content/add-participant.css"));
+                      "~/Content/add-participant.css",
+                      "~/Content/payment.css"));
         }
     }
 }

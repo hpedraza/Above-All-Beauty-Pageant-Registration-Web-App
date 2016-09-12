@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using Above_All_Beauty_Pageant.Core.Repositories;
+using Above_All_Beauty_Pageant.ViewModels;
+using Above_All_Beauty_Pageant.Models;
 
 namespace Above_All_Beauty_Pageant.Persistant.Repository
 {
@@ -15,7 +17,6 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
         {
             _context = db;
         }
-
 
         public List<string> EventNames()
         {
@@ -31,5 +32,17 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
                 .Id;
         }
 
+        public List<CategoriesParticipantsViewModel> GetCategoryParticipants(AgeGroup AgeGroup, string eventName)
+        {
+            var list = _context.Categories.Include(x => x.Participants).FirstOrDefault(c => c.Category == AgeGroup && c.Event.EventName == eventName).Participants.ToList();
+
+            var Participants = new List<CategoriesParticipantsViewModel>();
+            foreach(var p in list)
+            {
+                Participants.Add(new CategoriesParticipantsViewModel(p.FirstName,p.LastName, p.Id));
+            }
+
+            return Participants;
+        }
     }
 }

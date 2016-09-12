@@ -128,6 +128,10 @@
       <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Stripe.net, Version=6.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.6.5.0\lib\net45\Stripe.net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -262,7 +266,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CategoriesApiController.cs" />
+    <Compile Include="Controllers\AgeGroup.cs" />
+    <Compile Include="Controllers\api\CategoriesApiController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -331,6 +337,7 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CategoriesParticipantsViewModel.cs" />
     <Compile Include="ViewModels\ParticipantIndexViewModel.cs" />
     <Compile Include="ViewModels\ParticipantViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
@@ -343,6 +350,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\BootstrapOverwrite.css" />
     <Content Include="Content\carousel.css" />
+    <Content Include="Content\payment.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -422,10 +430,10 @@
     <Content Include="typings.json" />
     <Content Include="Views\Shared\_PaymentForm.cshtml" />
     <Content Include="Views\User\Payment.cshtml" />
+    <Content Include="Views\Event\CategoryDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\api\" />
     <Folder Include="typings\" />
   </ItemGroup>
   <ItemGroup>

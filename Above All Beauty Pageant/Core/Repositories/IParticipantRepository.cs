@@ -14,5 +14,6 @@ namespace Above_All_Beauty_Pageant.Core.Repositories
         ParticipantIndexViewModel GenreateParticipantIndexViewModel(List<Participant> participants);
         bool AddParticipant(string userId, int categoryId, ParticipantViewModel participantViewModel);
         Participant GetParticipantById(int id);
+        void ParticipantPaid(int id);
     }
 }

@@ -1,4 +1,10 @@
-﻿<form action="/your-charge-code" method="POST" id="payment-form">
+﻿
+@using (Html.BeginForm("your-charge-code", "User", FormMethod.Post, new { id="payment-form"}))
+{
+
+}
+
+<form action="/your-charge-code" method="POST" id="payment-form">
     <label>Payment</label>
     <div id="payment-div">
         <span class="payment-errors"></span>
@@ -31,8 +37,8 @@
 
 <script>
     $(document).ready(function () {
-            var $form = $('#payment-form');
-            $form.submit(function (event) {
+            const form = $('#payment-form');
+            form.submit(function (event) {
                 // Disable the submit button to prevent repeated clicks:
                 $form.find('.submit').prop('disabled', true);
                 alert("sdf");

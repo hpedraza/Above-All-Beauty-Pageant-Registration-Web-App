@@ -55,7 +55,6 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
             return vm;
         }
 
-
         public bool AddParticipant(string userId , int categoryId, ParticipantViewModel vm)
         {
             try
@@ -69,6 +68,11 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
                 return false;
             }
 
+        }
+
+        public void ParticipantPaid(int id)
+        {
+            _context.Participants.FirstOrDefault(p => p.Id == id).ParticipantPaid();
         }
     }
 }

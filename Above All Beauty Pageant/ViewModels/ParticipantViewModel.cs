@@ -38,6 +38,7 @@ namespace Above_All_Beauty_Pageant.ViewModels
 
         public bool Paid { get; set; }
 
+
         public ParticipantViewModel()
         {
 
@@ -49,6 +50,7 @@ namespace Above_All_Beauty_Pageant.ViewModels
             var attr = helper.getEnumDisplayAnnotaion(ageGroup, (int)ageGroup);
             AgeGroupDataAnnotation = ((DisplayAttribute)attr[0]).Name;
 
+            AgeGroup = ageGroup;
             FirstName = FN;
             LastName = ln;
             EventName = eventName;

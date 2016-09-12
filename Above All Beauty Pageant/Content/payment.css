@@ -1,0 +1,6 @@
+﻿#payment-form > div > div:nth-child(4) > input , #payment-form > div > div:nth-child(4) > label > input{
+    width: 50px;
+}
+#payment-form > div > div:nth-child(4) > input {
+    display: inline-block;
+}

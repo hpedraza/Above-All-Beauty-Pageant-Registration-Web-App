@@ -2,6 +2,8 @@
     let dropDown = $("#add-participant-form > div:nth-child(6) > select");
     let maleCategories = [];
     let femaleCategories = [];
+    let button;
+    let id;
 
     const enableFormControls = (...divs) => {
         $(divs.join()).css('display', 'block');
@@ -23,8 +25,7 @@
     const isFemale = (group) => {
         const words = group.split(" ");
         const lastWord = words[words.length - 1];
-        console.log(`lastWord: ${lastWord}`);
-         return lastWord == 'Miss' ? true : false;
+        return lastWord == 'Miss' ? true : false;
     }
 
     const disableFormControls = (...divs) => {
@@ -40,12 +41,9 @@
         for (let group of JSON.parse(categories)) {
             addToOneofTheCategories(maleCategories, femaleCategories, group, isFemale(group.group));
         }
+
         generateGenderDropDown(maleCategories);
-    dropDown.html(html);
-
-
-
-        
+        dropDown.html(html);
 }
 
 
@@ -73,14 +71,32 @@
 
     $('input[type="radio"]').change((e) => {
         dropDown.empty();
-        console.log(e.currentTarget.value);
         e.currentTarget.value === 'Female' ? generateGenderDropDown(femaleCategories) : generateGenderDropDown(maleCategories);
     });
 
-    $('#render-payment-form').on('click', (e) => {
-        const button = $(e.target);
-        const participantId = button.attr("data-participant");
+
+
+    const removeParticipant = () => {
+        button.parent().parent().parent().remove();
+    }
+
+    $('table > tbody > tr > td > form > #js-remove-participant').on('click', (e) => {
+        button = $(e.target);
+        id = button.attr('data-participant');
+        $('#remove-participant').modal('show');
     });
 
+    $('#remove-participant > div > div > div > #remove-participant-button').on('click', () => {
+        DeleteParticipant(id);
+    })
 
+    const DeleteParticipant = (id) =>
+    {
+        $.ajax({
+            url: "/api/Participant/" + id,
+            method: "Delete"
+
+        }).done(removeParticipant)
+          .fail(() => { alert("Could not remove participant") });
+    }
 });

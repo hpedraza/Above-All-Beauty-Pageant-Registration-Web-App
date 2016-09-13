@@ -61,46 +61,82 @@
 
 </form>
 
+<!-- Modal -->
+<div id="terms" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-@section Scripts
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Terms and Conditions</h4>
+            </div>
+            <div class="modal-body">
+                <p>Our judges are chosen with good intensions. ALL judges' decision are final.</p>
+                <p>No REFUNDS will be issued.</p>
+                <p>No soliciting for other pageant is allowed.</p>
+                <p>Good sportsmenship is required at all times by those in the pageant and by those attending the pageant.</p>
+                <p>Above All Beauty Pageant has all the rights to all photograph and reproduce as needed, for publication, advertisement and display.</p>
+                <p>Parents will be responsible for any tickets sold/unsold to be returned to pageant headquarters, this clear contestant status.</p>
+                <p>Above All Beauty Pageant has all the right to refuse service, or advertisements from any other pageant in our program book.</p>
+                <p>During the award ceremony the raffle will be held. Contestants will accumulate sponsor votes from tickets sold, parents are encouraged to participate.</p>
+                <p>Pageant Director wishes the best of luck</p>
+
+                <p>I have read the terms and conditions of this pageant.  I agree that I will not hold ABOVE ALL BEAUTY PAGEANT or any employee, or the facility where the pageant is held responsible in the event of theft or injury as a result of my child participating in this event. I hereby release anyone mentioned above of any liabilities, or any other cost that may acquire.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="SubmitFormButton" class="btn btn-success" data-dismiss="modal">Agree &Aacute; Pay</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+    @section Scripts
 {
-<script>
-    $(document).ready(function () {
-            var $form = $('#payment-form');
-            $form.submit( (event) => {
-                // Disable the submit button to prevent repeated clicks:
-                $form.find('.submit').prop('disabled', true);
+        <script>
+            $(document).ready(() => {
+                let $form = $('#payment-form');
+                $form.submit((event) => {
+                    // Disable the submit button to prevent repeated clicks:
+                    $form.find('.submit').prop('disabled', true);
 
-                // Request a token from Stripe:
-                Stripe.card.createToken($form, stripeResponseHandler);
+                    // Request a token from Stripe:
+                    Stripe.card.createToken($form, stripeResponseHandler);
 
-                // Prevent the form from being submitted:
-                return false;
-            });
+                    // Prevent the form from being submitted:
+                    return false;
+                });
 
-            const stripeResponseHandler = (status, response) => {
-                // Grab the form:
-                var $form = $('#payment-form');
+                const stripeResponseHandler = (status, response) => {
+                    
+                    if (response.error) { // Problem!
 
-                if (response.error) { // Problem!
+                        // Show the errors on the form:
+                        $form.find('.payment-errors').text(response.error.message);
+                        $form.find('.submit').prop('disabled', false); // Re-enable submission
 
-                    // Show the errors on the form:
-                    $form.find('.payment-errors').text(response.error.message);
-                    $form.find('.submit').prop('disabled', false); // Re-enable submission
+                    } else { // Token was created!
 
-                } else { // Token was created!
+                        // Get the token ID:
+                        const token = response.id;
 
-                    // Get the token ID:
-                    var token = response.id;
+                        // Insert the token ID into the form so it gets submitted to the server:
+                        $form.append($('<input type="hidden" name="stripeToken">').val(token));
 
-                    // Insert the token ID into the form so it gets submitted to the server:
-                    $form.append($('<input type="hidden" name="stripeToken">').val(token));
+                        // open up modal with terms and conditions
+                        $('#terms').modal('show');
+                        //$form.get(0).submit();
+                    }
+                };
 
-                    // Submit the form:
+                $('#SubmitFormButton').on('click', () => {
                     $form.get(0).submit();
-                }
-            };
-    });
-</script>
-    
+                });
+            });
+        </script>
+
     }

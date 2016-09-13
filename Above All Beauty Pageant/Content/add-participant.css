@@ -10,3 +10,21 @@
    display: none;
 }
 
+#add-participation-container{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #f8EEE7;
+}
+
+#add-participant-form{
+    background-color: #49274a;
+    color: white;
+    padding: 35px;
+}
+
+#add-participant-form > div > select  {
+    color: black;
+}

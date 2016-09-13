@@ -15,5 +15,6 @@ namespace Above_All_Beauty_Pageant.Core.Repositories
         bool AddParticipant(string userId, int categoryId, ParticipantViewModel participantViewModel);
         Participant GetParticipantById(int id);
         void ParticipantPaid(int id);
+        string DeleteParticipant(int id);
     }
 }

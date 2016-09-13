@@ -14,6 +14,7 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
     public class ParticipantRepository : IParticipantRepository
     {
         private AboveAllContext _context;
+
         public ParticipantRepository(AboveAllContext db)
         {
             _context = db;
@@ -73,6 +74,14 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
         public void ParticipantPaid(int id)
         {
             _context.Participants.FirstOrDefault(p => p.Id == id).ParticipantPaid();
+        }
+
+        public string DeleteParticipant(int id)
+        {
+            var participantToRemove = _context.Participants.FirstOrDefault(p => p.Id == id);
+            var userId = participantToRemove.UserId;
+            _context.Participants.Remove(participantToRemove);
+            return userId;
         }
     }
 }

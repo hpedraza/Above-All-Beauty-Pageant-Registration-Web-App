@@ -268,6 +268,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgeGroup.cs" />
     <Compile Include="Controllers\api\CategoriesApiController.cs" />
+    <Compile Include="Controllers\api\ParticipantController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

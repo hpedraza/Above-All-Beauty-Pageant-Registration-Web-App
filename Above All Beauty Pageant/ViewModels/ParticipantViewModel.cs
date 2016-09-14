@@ -38,6 +38,31 @@ namespace Above_All_Beauty_Pageant.ViewModels
 
         public bool Paid { get; set; }
 
+        [Required(ErrorMessage = "Please type in participant's favorite hobbies.")]
+        [Display(Name = "Hobbies")]
+        public string Hobbies { get; set; }
+
+        [Required(ErrorMessage = "Please type in participant's eye color.")]
+        [Display(Name = "Eye Color")]
+        public string EyeColor { get; set; }
+
+        [Required(ErrorMessage = "Please type in participant's hair color.")]
+        [Display(Name = "Hair Color")]
+        public string HairColor { get; set; }
+
+        [Required(ErrorMessage = "Please type in participant's favorite color.")]
+        [Display(Name = "Favorite Color")]
+        public string FavoriteColor { get; set; }
+
+        [Required(ErrorMessage = "Please type in participant's favorite food.")]
+        [Display(Name = "Favorite Food")]
+        public string FavoriteFood { get; set; }
+
+        [Required(ErrorMessage = "Please select date of birth.")]
+        [Display(Name = "Date of birth")]
+        public DateTime DOB{ get; set; }
+
+        public string Sponsor { get; set; }
 
         public ParticipantViewModel()
         {

@@ -210,6 +210,24 @@ textarea {
     width: 62.5%;
     border-radius: 2%
 }
+
+
+
+thead > tr > th{
+    padding: 15px 0px !important;
+    color: white;
+    background-color: #94618e;
+    font-size: 17px;
+    font-family: comfortaa;
+    font-weight: 400;
+    border: none;
+}
+
+tbody{
+    font-size: 14px;
+    font-family: Arial,Verdana,Helvetica,sans-serif;
+}
+
 footer {
     background-color: #49274A;
     color: white;
@@ -219,12 +237,10 @@ footer {
     align-items: flex-end;
     padding-top: 15px;
     border-top: 1px solid #f8EEE7;
-    font-family: Arial;
-    text-shadow: 0px 1.2px black
+    font-family: Arial,Verdana,Helvetica,sans-serif;
+
 }
-footer > div > p > span {
-    font-weight: 700
-}
+
 footer > div,
 footer > p {
     padding-bottom: 15px

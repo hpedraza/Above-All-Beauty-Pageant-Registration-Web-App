@@ -60,7 +60,7 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
         {
             try
             {
-                var participant = new Participant(vm.FirstName, vm.LastName, vm.Gender, userId , categoryId);
+                var participant = new Participant(vm.FirstName, vm.LastName, vm.Gender, userId , categoryId, vm.DOB, vm.HairColor, vm.EyeColor,vm.FavoriteColor,vm.FavoriteFood, vm.Hobbies,vm.Sponsor);
                 _context.Participants.Add(participant);
                 return true;
             }

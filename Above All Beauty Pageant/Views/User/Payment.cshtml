@@ -2,61 +2,74 @@
 @{
     ViewBag.Title = "Payment";
 }
+<div id="payment-heading">
+    <h2 >Payment to register @Model.FirstName</h2>
+</div>
+<div id="payment-container">
+    <div id="payment-container-item"><a href="https://www.stripe.com"><img src="~/Images/Website Imgs/powered-by-stripe.png" /></a></div>
+    @using (Html.BeginForm("Payment", "User", FormMethod.Post, new { id = "payment-form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(p => p.Id)
+        <div id="payment-div">
 
-<h2>Payment</h2>
-@using (Html.BeginForm("Payment", "User", FormMethod.Post, new { id = "payment-form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(p => p.Id)
-    <div id="payment-div">
-        <span class="payment-errors"></span>
-        <div class="form-group">
-            <label>
-                <span>Credit Card Number</span>
-                <input type="text" maxlength="20"  class="form-control" size="20" data-stripe="number" required>
-            </label>
+            <span class="payment-errors"></span>
+            <div class="form-group">
+
+                <label>
+                    <span>Credit Card Number</span>
+                    <i class="glyphicon glyphicon-credit-card"></i>
+                    <input type="text" maxlength="20" id="card" class="form-control" size="20" data-stripe="number" required>
+
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span>Cardholder's Name</span>
+                    <i class="glyphicon glyphicon-user" ></i>
+                    <input type="text" class="form-control" data-stripe="name" required>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span>Card Expiration (MM/YY)</span>
+                </label><br />
+                <input id="month" type="text" size="2" maxlength="2" class="form-control" data-stripe="exp_month" required>
+                <span> / </span>
+                <input type="text" id="year" size="2" maxlength="2" class="form-control" data-stripe="exp_year" required>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span>Street</span>
+                    <i class="glyphicon glyphicon-road"></i>
+                    <input type="text" class="form-control" data-stripe="address_line1" required>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span>Zip Code</span>
+                    <i class="glyphicon glyphicon-home"></i>
+                    <input type="text"  maxlength="5" class="form-control" data-stripe="address_zip" required>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span>Security code on card (CVV)</span>
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <input type="text" id="CVC" class="form-control" maxlength="4" data-stripe="cvc" required>
+                </label>
+            </div>
+
+            <input type="submit" class="submit btn btn-success" value="Pay $90 to Register" required>
         </div>
+    }
+</div>
 
-        <div class="form-group">
-            <label>
-                <span>Cardholder's Name</span>
-                <input type="text" class="form-control"  data-stripe="name" required>
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label>
-                <span>Card Expiration (MM/YY)</span> 
-            </label><br />
-            <input type="text" size="2" maxlength="2" class="form-control" data-stripe="exp_month" required>
-            <span> / </span>
-            <input type="text" size="2" maxlength="2" class="form-control"  data-stripe="exp_year" required>
-        </div>
-
-        <div class="form-group">
-            <label>
-                <span>Street</span>
-                <input type="text" class="form-control"  data-stripe="address_line1" required>
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label>
-                <span>Zip Code</span>
-                <input type="number" size="5"  maxlength="5"   class="form-control" data-stripe="address_zip" required>
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label>
-                <span>Security Code on Card (CVV)</span>
-                <input type="text" size="4" class="form-control" maxlength="4" data-stripe="cvc" required>
-            </label>
-        </div>
-
-        <input type="submit" class="submit btn btn-success" value="Pay $90 to Register" required>
-    </div>
-}
 <form action="Payment" method="POST" id="payment-form">
 
 </form>
@@ -85,8 +98,8 @@
                 <p>I have read the terms and conditions of this pageant.  I agree that I will not hold ABOVE ALL BEAUTY PAGEANT or any employee, or the facility where the pageant is held responsible in the event of theft or injury as a result of my child participating in this event. I hereby release anyone mentioned above of any liabilities, or any other cost that may acquire.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" id="SubmitFormButton" class="btn btn-success" data-dismiss="modal">Agree &Aacute; Pay</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" id="SubmitFormButton" class="btn btn-success" data-dismiss="modal">Agree &amp; Pay</button>
+                <button type="button" id="CloseModal" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
 
@@ -100,12 +113,21 @@
         <script>
             $(document).ready(() => {
                 let $form = $('#payment-form');
-                $form.submit((event) => {
-                    // Disable the submit button to prevent repeated clicks:
-                    $form.find('.submit').prop('disabled', true);
 
-                    // Request a token from Stripe:
-                    Stripe.card.createToken($form, stripeResponseHandler);
+
+                $form.submit((event) => {
+                    console.log($form);
+                    // Disable the submit button to prevent repeated clicks:
+         
+                    if (Stripe.card.validateCardNumber($('#card').val())) {
+                        $form.find('.submit').prop('disabled', true);
+
+                        // Request a token from Stripe:
+                        Stripe.card.createToken($form, stripeResponseHandler);
+                    }
+                    else {
+                        $form.find('.payment-errors').text("*Invalid card number.");
+                    }
 
                     // Prevent the form from being submitted:
                     return false;
@@ -116,7 +138,7 @@
                     if (response.error) { // Problem!
 
                         // Show the errors on the form:
-                        $form.find('.payment-errors').text(response.error.message);
+                        $form.find('.payment-errors').text(`*${response.error.message}`);
                         $form.find('.submit').prop('disabled', false); // Re-enable submission
 
                     } else { // Token was created!
@@ -136,6 +158,48 @@
                 $('#SubmitFormButton').on('click', () => {
                     $form.get(0).submit();
                 });
+
+                $('#terms').on('hidden.bs.modal', () => {
+                    $form.find('.submit').prop('disabled', false); // Re-enable submission
+                });
+
+                $('#card').on('focusout', () => {
+                    if (!Stripe.card.validateCardNumber($('#card').val())) {
+                        $form.find('.payment-errors').text("Invalid card number.");
+                    }
+                    else {
+                        $form.find('.payment-errors').text("");
+                    }
+                });
+
+                $('#year').on('focusout', () => {
+                    if (!Stripe.card.validateExpiry($('#month').val(), $('#year').val())) {
+                        $form.find('.payment-errors').text("Invalid expiration date.");
+                    }
+                    else {
+                        $form.find('.payment-errors').text("");
+                    }
+                });
+
+                $('#month').on('focusout', () => {
+                    if (!Stripe.card.validateExpiry($('#month').val(), $('#year').val())) {
+                        $form.find('.payment-errors').text("Invalid expiration date.");
+                    }
+                    else {
+                        $form.find('.payment-errors').text("");
+                    }
+                });
+
+
+                $('#CVC').on('focusout', () => {
+                    if (!Stripe.card.validateCVC($('#CVC').val())) {
+                        $form.find('.payment-errors').text("Invalid CVC.");
+                    }
+                    else {
+                        $form.find('.payment-errors').text("");
+                    }
+                });
+
             });
         </script>
 

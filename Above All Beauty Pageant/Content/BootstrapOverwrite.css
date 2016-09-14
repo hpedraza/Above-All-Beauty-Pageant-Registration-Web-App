@@ -20,3 +20,21 @@
 .navbar-inverse .navbar-toggle {
     border-color: #49274a
 }
+
+.table-striped > tbody > tr:nth-of-type(odd){
+    background-color: #f8eee7;
+}
+
+input.form-control{
+    box-shadow: none !important;
+    -webkit-box-shadow: !important;
+    -webkit-transition: !important;
+    transition: !important;
+    border-radius: 2px;
+}
+
+.payment-errors{
+    color: red;
+
+    font-family:  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

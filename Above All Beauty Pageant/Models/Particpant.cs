@@ -21,10 +21,13 @@ namespace Above_All_Beauty_Pageant.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string FirstName { get;set;}
 
+        [Required]
         public string LastName { get; set; }
 
+        [Required]
         public Gender Gender { get; set; }
 
         public EventCategory EventCategory { get; set; }
@@ -34,6 +37,26 @@ namespace Above_All_Beauty_Pageant.Models
         public string UserId { get; private set; }
 
         public bool paid { get; private set; }
+
+        [Required]
+        public DateTime DOB { get; set; }
+
+        [Required]
+        public string HairColor { get; set; }
+
+        [Required]
+        public string EyeColor { get; set; }
+
+        [Required]
+        public string FavoriteColor { get; set; }
+
+        [Required]
+        public string FavoriteFood { get; set; }
+
+        [Required]
+        public string Hobbies { get; set; }
+
+        public string Sponsor { get; set; }
      
         public Participant()
         {
@@ -45,7 +68,7 @@ namespace Above_All_Beauty_Pageant.Models
             paid = true;
         }
 
-        public Participant(string FirstName, string LastName, Gender Gender ,string UserId, int eventId)
+        public Participant(string FirstName, string LastName, Gender Gender ,string UserId, int eventId, DateTime dob, string hairColor, string eyeColor, string favoriteColor, string favoriteFood, string hobbies, string sponsor = null)
         {
             this.FirstName = FirstName;
             this.LastName = LastName;
@@ -53,6 +76,13 @@ namespace Above_All_Beauty_Pageant.Models
             this.UserId = UserId;
             EventCategoryId = eventId;
             paid = false;
+            DOB = dob;
+            HairColor = hairColor;
+            EyeColor = eyeColor;
+            FavoriteColor = favoriteColor;
+            FavoriteFood = favoriteFood;
+            Hobbies = hobbies;
+            Sponsor = sponsor;
         }
     }
 }

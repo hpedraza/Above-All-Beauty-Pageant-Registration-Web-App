@@ -1,9 +1,15 @@
 ﻿$(document).ready(function () {
-    let dropDown = $("#add-participant-form > div:nth-child(6) > select");
+    let dropDown = $("select#AddParticipant_AgeGroup");
     let maleCategories = [];
     let femaleCategories = [];
     let button;
     let id;
+    let dob;
+    let gender = 'male';
+    let years;
+    let months;
+    let categoryName;
+    let dateInput = $('#add-participant-form > div > input[type="date"]'); 
 
     const enableFormControls = (...divs) => {
         $(divs.join()).css('display', 'block');
@@ -13,11 +19,10 @@
         isParticipantFemale ? femaleCategories.push(group) : maleCategories.push(group);
     }
 
-    const generateGenderDropDown = (genderGroups) => {
-        console.log(genderGroups);
+    const generateGenderDropDown = (genderGroups) => { 
         let html = '';
         for (let group of genderGroups) {
-            html += `<option value="${group.value}">${group.group}</option>`
+            html += `<option value="${group.value}">${group.group}</option>`;
         }
         dropDown.html(html);
     }
@@ -25,7 +30,14 @@
     const isFemale = (group) => {
         const words = group.split(" ");
         const lastWord = words[words.length - 1];
-        return lastWord == 'Miss' ? true : false;
+        if (lastWord === "Miss") {
+            gender = "female";
+            return true;
+        } else {
+            gender = 'male';
+            return false;
+        }
+    
     }
 
     const disableFormControls = (...divs) => {
@@ -44,16 +56,16 @@
 
         generateGenderDropDown(maleCategories);
         dropDown.html(html);
-}
+    }
 
 
-    $('#event-drop-down-list').change((e) => {
+    $('select#event-drop-down-list.form-control').change((e) => {
         const dto = {
             eventName: $(e.target).val()
         }
 
-        enableFormControls('#add-participant-form > div:nth-child(5)',
-                           '#add-participant-form > div:nth-child(6)');
+        enableFormControls('#add-participant-form > div:nth-child(11)',
+                           '#add-participant-form > div:nth-child(12)');
 
         invertButtonDiability(document.getElementById("js-add-participant-button"), false);
         // service
@@ -71,10 +83,13 @@
 
     $('input[type="radio"]').change((e) => {
         dropDown.empty();
-        e.currentTarget.value === 'Female' ? generateGenderDropDown(femaleCategories) : generateGenderDropDown(maleCategories);
+        e.currentTarget.value === "Female" ? gender = "female" : gender = "male";
+        if (dateInput.val()) {
+            FilterDropDown(years);
+        }
     });
-
-
+ 
+    // remove participant -- below //
 
     const removeParticipant = () => {
         button.parent().parent().parent().remove();
@@ -98,5 +113,68 @@
 
         }).done(removeParticipant)
           .fail(() => { alert("Could not remove participant") });
+    }
+
+
+    //-- Client side business logic --//
+
+    $(dateInput).on('focusout', () => {
+        let dob = new Date($('#add-participant-form > div > input[type="date"]')[0].value);
+        let time = Date.now() - dob.getTime();
+        let date = new Date(time);
+        years = Math.abs(date.getUTCFullYear() - 1970);
+
+        FilterDropDown(years);
+
+        
+    })
+
+    const FilterDropDown = (year) => {
+        if (gender === "male") {
+            if (year === 0) {
+                categoryName = "Baby Mr.";
+            } else if (year === 1) {
+                categoryName = "Pee Wee Mr.";
+            } else if (year === 2 || year === 3) {
+                categoryName = "Tiny Mr.";
+            } else if (year === 4 || year === 5 ) {
+                categoryName = "Little Mr.";
+            } 
+        } else {
+            if (year === 0) {
+                categoryName = "Baby Miss";
+            } else if (year === 1) {
+                categoryName = "Pee Wee Miss";
+            } else if (year === 2 || year === 3) {
+                categoryName = "Tiny Miss";
+            } else if (year === 4 || year === 5) {
+                categoryName = "Little Miss";
+            } else if (year === 6 || year === 7 || year === 8) {
+                categoryName = "Petite Miss";
+            } else if (year === 9 || year === 10 || year === 11 || year === 12) {
+                categoryName = "Youth Miss";
+            } else if (year === 13 || year === 14 || year === 15) {
+                categoryName = "Teen Miss";
+            } 
+        }
+        Filter();
+    }
+
+    const Filter = () => {
+        dropDown.empty();
+        let html = '';
+        let obj;
+        if (gender === "male") {
+            obj = maleCategories.find(findGroup);
+        } else {
+            obj = femaleCategories.find(findGroup);
+        }
+
+        html += `<option value="${obj.value}">${obj.group}</option>`;
+        dropDown.html(html);
+    }
+
+    const findGroup = (group) => {
+        return group.group === categoryName;
     }
 });

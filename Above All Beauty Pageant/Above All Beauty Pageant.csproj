@@ -316,6 +316,22 @@
     <Compile Include="Migrations\201609081619201_CreatedUniqueKeyBetweenCategoryAndEventIdInEventCategoryTable.Designer.cs">
       <DependentUpon>201609081619201_CreatedUniqueKeyBetweenCategoryAndEventIdInEventCategoryTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609132023066_addedMorePropertiesToParticipant.cs" />
+    <Compile Include="Migrations\201609132023066_addedMorePropertiesToParticipant.Designer.cs">
+      <DependentUpon>201609132023066_addedMorePropertiesToParticipant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609132030466_addedMorePropertiesToParticipant1.cs" />
+    <Compile Include="Migrations\201609132030466_addedMorePropertiesToParticipant1.Designer.cs">
+      <DependentUpon>201609132030466_addedMorePropertiesToParticipant1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609132034104_UpdatedParticipantsPropertiesDataAnnotations.cs" />
+    <Compile Include="Migrations\201609132034104_UpdatedParticipantsPropertiesDataAnnotations.Designer.cs">
+      <DependentUpon>201609132034104_UpdatedParticipantsPropertiesDataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.cs" />
+    <Compile Include="Migrations\201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.Designer.cs">
+      <DependentUpon>201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistant\Repository\CategoryRespository.cs" />
     <Compile Include="Persistant\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="DAL\AboveAllContext.cs" />
@@ -342,6 +358,7 @@
     <Compile Include="ViewModels\ParticipantIndexViewModel.cs" />
     <Compile Include="ViewModels\ParticipantViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\TransactionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\add-participant.css" />
@@ -351,11 +368,27 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\BootstrapOverwrite.css" />
     <Content Include="Content\carousel.css" />
+    <Content Include="Content\event-details.css" />
     <Content Include="Content\payment.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\coordinators\aa-lilly.PNG" />
+    <Content Include="Images\HomeSlideShow\Event\baby-pageant-winner.JPG" />
+    <Content Include="Images\HomeSlideShow\Event\beauty-pageant-contestant-1.jpg" />
+    <Content Include="Images\HomeSlideShow\Event\beauty-pageant-contestant-2.JPG" />
+    <Content Include="Images\HomeSlideShow\Event\beauty-pageant-contestant-3.JPG" />
+    <Content Include="Images\HomeSlideShow\Event\beauty-pageant-contestant-4.JPG" />
+    <Content Include="Images\HomeSlideShow\Event\beauty-pageant-contestant-5.JPG" />
+    <Content Include="Images\HomeSlideShow\Event\royal-division-winner.JPG" />
+    <Content Include="Images\HomeSlideShow\Parade\fourth-of-july-parade.jpg" />
+    <Content Include="Images\sponsors\elegance-shutters.jpg" />
+    <Content Include="Images\sponsors\texas-star-logo.jpg" />
+    <Content Include="Images\Website Imgs\Bat-Moon.png" />
+    <Content Include="Images\Website Imgs\fb-logo.png" />
+    <Content Include="Images\Website Imgs\logo.png" />
+    <Content Include="Images\Website Imgs\powered-by-stripe.png" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -475,6 +508,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609081619201_CreatedUniqueKeyBetweenCategoryAndEventIdInEventCategoryTable.resx">
       <DependentUpon>201609081619201_CreatedUniqueKeyBetweenCategoryAndEventIdInEventCategoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609132023066_addedMorePropertiesToParticipant.resx">
+      <DependentUpon>201609132023066_addedMorePropertiesToParticipant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609132030466_addedMorePropertiesToParticipant1.resx">
+      <DependentUpon>201609132030466_addedMorePropertiesToParticipant1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609132034104_UpdatedParticipantsPropertiesDataAnnotations.resx">
+      <DependentUpon>201609132034104_UpdatedParticipantsPropertiesDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.resx">
+      <DependentUpon>201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

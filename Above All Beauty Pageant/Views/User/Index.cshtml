@@ -3,7 +3,9 @@
     ViewBag.Title = "Welcome to Above All Beauty Pageant " + User.Identity.Name;
 }
 <!-- Need to create 1) Event details view 2) participant details view -->
-<h2>Welcome @User.Identity.Name</h2>
+<div id="welcome-container">
+    <h2>@User.Identity.Name</h2>
+</div>
 
 
 @if (Model.Participants.Count() > 0)
@@ -11,12 +13,11 @@
     <table id ="ParticipantsTable" class="table table-striped table-hover table-responsive table-condensed">
         <thead>
             <tr>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>Age Group</td>
-                <td>Gender</td>
-                <td>Event</td>
-                <td>Registered</td>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age Group</th>
+                <th>Event</th>
+                <th>Registered</th>
             </tr>
         </thead>
         <tbody>
@@ -31,9 +32,6 @@
                     </td>
                     <td>
                         @participant.AgeGroupDataAnnotation
-                    </td>
-                    <td>
-                        @participant.Gender
                     </td>
                     <td>
                         @participant.EventName               
@@ -60,8 +58,6 @@
                             }
 
                         }
-
-
                     </td>
                 </tr>
             }
@@ -118,7 +114,7 @@
         </div>
 
     </div>
-    @using (Html.BeginForm("AddParticipant", "User", FormMethod.Post, new { id = "add-participant-form" }))
+    @using (Html.BeginForm("Index", "User", FormMethod.Post, new { id = "add-participant-form" }))
     {
 
         @Html.AntiForgeryToken()
@@ -134,21 +130,62 @@
             @Html.TextBoxFor(m => m.AddParticipant.LastName, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.AddParticipant.LastName)
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.AddParticipant.DOB)
+            @Html.TextBoxFor(m => m.AddParticipant.DOB, new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.AddParticipant.DOB)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.AddParticipant.HairColor) <br />
+            @Html.TextBoxFor(m => m.AddParticipant.HairColor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AddParticipant.HairColor)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.AddParticipant.EyeColor) <br />
+            @Html.TextBoxFor(m => m.AddParticipant.EyeColor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AddParticipant.EyeColor)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.AddParticipant.FavoriteColor) <br />
+            @Html.TextBoxFor(m => m.AddParticipant.FavoriteColor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AddParticipant.FavoriteColor)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.AddParticipant.FavoriteFood) <br />
+            @Html.TextBoxFor(m => m.AddParticipant.FavoriteFood, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AddParticipant.FavoriteFood)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.AddParticipant.Hobbies) <br />
+            @Html.TextBoxFor(m => m.AddParticipant.Hobbies, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AddParticipant.Hobbies)
+        </div>
+
+
         <div class="form-group">
             @Html.LabelFor(m => m.AddParticipant.EventName)
 
             @Html.DropDownListFor(m => m.AddParticipant.EventName,
-                                    new SelectList(Model.EventNames),
-                                    "-- Event to Attend --",
-                                    new { id = "event-drop-down-list", @class = "form-control" })
+                      new SelectList(Model.EventNames),
+                      "-- Event to Attend --",
+                      new { id = "event-drop-down-list", @class = "form-control" })
 
 
             @Html.ValidationMessageFor(m => m.AddParticipant.EventName)
         </div>
 
+
+
+
         <div class="form-group">
             @Html.LabelFor(m => m.AddParticipant.Gender) <br />
-            @Html.RadioButtonFor(m => m.AddParticipant.Gender, "Male")Male <br />
+            @Html.RadioButtonFor(m => m.AddParticipant.Gender, "Male", new { @checked = "checked" })Male <br />
             @Html.RadioButtonFor(m => m.AddParticipant.Gender, "Female")Female
             @Html.ValidationMessageFor(m => m.AddParticipant.Gender)
         </div>
@@ -164,6 +201,11 @@
             @Html.ValidationMessageFor(m => m.AddParticipant.AgeGroup)
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(m => m.AddParticipant.Sponsor) <br />
+            @Html.TextBoxFor(m => m.AddParticipant.Sponsor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AddParticipant.Sponsor)
+        </div>
 
         <input type="submit" class="btn btn-success" id="js-add-participant-button" value="Add Participant" disabled />
     }

@@ -3,4 +3,69 @@
 }
 #payment-form > div > div:nth-child(4) > input {
     display: inline-block;
+   
 }
+
+
+#payment-container{
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: flex-end;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap:wrap;
+    margin-top: 25px;
+}
+
+#payment-container > div:nth-child(1){
+    border-radius: 500px;
+}
+#payment-container > div:nth-child(1) > a > img {
+    border-radius: 5px;
+}
+
+#payment-form > div > div > label{
+    position: relative;
+}
+
+#payment-form > div > div > label > input{
+    padding-left: 28px;
+}
+#payment-heading{
+    font-family: comfortaa;
+    font-size: 25px;
+    text-align: center;
+    background-color: #f8EEE7;
+    margin:0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #49274a;
+    color: #94618e;
+}
+.glyphicon{
+    position: absolute;
+    top: 30px;
+    right:205px;
+}
+
+#payment-container-item{
+    align-self: flex-start;
+}
+
+.modal-title{
+    font-weight: 700;
+}
+@media screen and (min-width: 0px) and (max-width: 549px){
+    #payment-container > div:nth-child(1) > a > img{
+        width: 150px;
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 352px){
+    #payment-container > div:nth-child(1) > a > img{
+        width: 120px !important;
+    }
+
+}
+

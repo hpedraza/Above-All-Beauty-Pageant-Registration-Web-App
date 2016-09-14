@@ -21,26 +21,23 @@ namespace Above_All_Beauty_Pageant.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index(ParticipantViewModel participant = null)
+        public ActionResult Index()
         {
             var Participants = _unitOfWork.Participants.GetParticipants(User.Identity.GetUserId());
             var vm = _unitOfWork.Participants.GenreateParticipantIndexViewModel(Participants);
-        
-            if (participant != null)
-                vm.AddParticipant = participant;
 
             vm.EventNames = _unitOfWork.Events.EventNames();
             return View(vm);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddParticipant(ParticipantIndexViewModel vm)
+        public ActionResult Index(ParticipantIndexViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", vm.AddParticipant);
+                vm.EventNames = _unitOfWork.Events.EventNames();
+                return View("Index" , vm);
             }
             var userId = User.Identity.GetUserId();
             var categoryId = _unitOfWork.Category.GetCategoryIdByName(vm.AddParticipant.AgeGroup);
@@ -102,16 +99,27 @@ namespace Above_All_Beauty_Pageant.Controllers
                     _unitOfWork.Complete();
                     helper.SendEmailNotification(User.Identity.GetUserName(), string.Format("{0} {1}", participant.FirstName, participant.LastName));
 
+                    // DIRECT TO PAYMENT HAS BEEN MADE
+                    RedirectToAction("Transaction", new { TransactionMade = true, id = id });
                 }
                 catch (Exception ex)
                 {
                     var e = ex;
                     // card has been declined
                     // redirect to credit card is declined
+                    RedirectToAction("Transaction", new { TransactionMade = true, id = id });
                 }
             }
             
             return RedirectToAction("Index");
         }
+
+        public ActionResult Transaction(bool TransactionMade , int id)
+        {
+
+
+            return View();
+        }
+
     }
 }

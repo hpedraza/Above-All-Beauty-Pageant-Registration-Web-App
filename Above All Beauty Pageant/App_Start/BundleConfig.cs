@@ -30,11 +30,12 @@ namespace Above_All_Beauty
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
+                      "~/Content/Site.css",
                       "~/Content/BootstrapOverwrite.css",
                       "~/Content/carousel.css",
                       "~/Content/add-participant.css",
-                      "~/Content/payment.css"));
+                      "~/Content/payment.css",
+                      "~/Content/event-details.css"));
         }
     }
 }

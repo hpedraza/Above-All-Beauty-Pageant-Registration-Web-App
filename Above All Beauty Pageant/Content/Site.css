@@ -1,6 +1,12 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px
+﻿@font-face{
+    font-family: "WeblySleek UI";
+    src: url(../fonts/weblysleekuil.ttf) format('truetype');
+}
+
+
+
+body {
+    padding-top: 30px;
 }
 .body-content {
     padding-left: 15px;
@@ -191,10 +197,10 @@ textarea {
 }
 #sponsored-by > div:nth-child(1) {
     display: inline-block;
-    font-family: comfortaa;
-    font-size: 45px;
+    font-family: "WeblySleek UI" , comfortaa , sans-serif;
+    font-size: 38px;
     color: white;
-    text-shadow: 0px 0.95px black
+    text-shadow: 0px 0.95px black;
 }
 #sponsor-logos {
     display: flex;
@@ -218,7 +224,7 @@ thead > tr > th{
     color: white;
     background-color: #94618e;
     font-size: 17px;
-    font-family: comfortaa;
+    font-family: "WeblySleek UI",'lucida grande',tahoma,verdana,arial,sans-serif;
     font-weight: 400;
     border: none;
 }
@@ -228,6 +234,11 @@ tbody{
     font-family: Arial,Verdana,Helvetica,sans-serif;
 }
 
+input#log-in-button , input#register-button{
+    border-radius: 4%;
+    width: 100%;
+}
+
 footer {
     background-color: #49274A;
     color: white;
@@ -235,9 +246,10 @@ footer {
     justify-content: space-around;
     flex-flow: row wrap-reverse;
     align-items: flex-end;
-    padding-top: 15px;
+    padding-top: 17px;
     border-top: 1px solid #f8EEE7;
-    font-family: Arial,Verdana,Helvetica,sans-serif;
+    font-family: "WeblySleek UI","Helvetica Neue",Helvetica,Arial,Roboto,sans-serif;
+    font-weight: 500;
 
 }
 
@@ -290,11 +302,13 @@ footer > div > a > img {
         height: 250px
     }
 }
-@media (min-width: 670px)and (max-width: 873px) {
+@media (min-width: 0px)and (max-width: 670px) {
     footer {
-        flex-flow: column-reverse;
-        align-items: center
+        flex-direction: row-reverse;
+        flex-wrap: wrap-reverse;
+
     }
+
 }
 @media (min-width: 1085px) {
     #sponsor-logos > a > img {

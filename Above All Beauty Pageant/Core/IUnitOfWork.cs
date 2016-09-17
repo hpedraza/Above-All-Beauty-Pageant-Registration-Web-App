@@ -13,6 +13,8 @@ namespace Above_All_Beauty_Pageant.Core
         IEventRepository Events { get;  }
         IParticipantRepository Participants { get; }
         ICategoryRepository Category { get; }
+        IReceiptRepository Receipts { get; }
+
         void Complete();
     }
 }

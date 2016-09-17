@@ -21,7 +21,7 @@ namespace Above_All_Beauty_Pageant.Models
         [Display(Name = "Little Miss")]
         LittleMiss,
 
-        [Display(Name = "Baby Miss")]
+        [Display(Name = "Petite Miss")]
         PetiteMiss,
 
         [Display(Name = "Youth Miss")]

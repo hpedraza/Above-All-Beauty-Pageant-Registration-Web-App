@@ -38,6 +38,13 @@ namespace Above_All_Beauty_Pageant.Controllers
             {
                 vm.EventNames = _unitOfWork.Events.EventNames();
                 return View("Index" , vm);
+            }else
+            {
+                if (!CheckIfParticipantCanParticipateInCategory(vm))
+                {
+                    vm.EventNames = _unitOfWork.Events.EventNames();
+                    return View("Index", vm);
+                }
             }
             var userId = User.Identity.GetUserId();
             var categoryId = _unitOfWork.Category.GetCategoryIdByName(vm.AddParticipant.AgeGroup);
@@ -49,6 +56,66 @@ namespace Above_All_Beauty_Pageant.Controllers
 
             }
             return RedirectToAction("Index");
+        }
+
+        public bool CheckIfParticipantCanParticipateInCategory(ParticipantIndexViewModel vm)
+        {
+            var today = DateTime.UtcNow;
+            var age = today.Year - vm.AddParticipant.DOB.Year;
+
+            if (today < vm.AddParticipant.DOB.AddYears(age)) age--;
+
+            if(vm.AddParticipant.Gender == Models.Gender.Female)
+            {
+                switch (vm.AddParticipant.AgeGroup)
+                {
+                    case Models.AgeGroup.BabyMiss:
+                        if (age < 1) return true;
+                        else return false;
+                    case Models.AgeGroup.PeeWeeMiss:
+                        if (age < 2 && age >= 1) return true;
+                        else return false;
+                    case Models.AgeGroup.TinyMiss:
+                        if (age <= 3 && age >= 2) return true;
+                        else return false;
+                    case Models.AgeGroup.LittleMiss:
+                        if (age <= 5 && age >= 4) return true;
+                        else return false;
+                    case Models.AgeGroup.PetiteMiss:
+                        if (age <= 8 && age >= 6) return true;
+                        else return false;
+                    case Models.AgeGroup.YouthMiss:
+                        if (age <= 12 && age >=9) return true;
+                        else return false;
+                    case Models.AgeGroup.TeenMiss:
+                        if (age <= 15 && age >= 13) return true;
+                        else return false;
+                    default:
+                        return false;
+
+                }
+            }
+            else
+            {
+                switch (vm.AddParticipant.AgeGroup)
+                {
+                    case Models.AgeGroup.BabyMr:
+                        if (age < 1) return true;
+                        else return false;
+                    case Models.AgeGroup.PeeWeeMr:
+                        if (age < 2 && age >= 1) return true;
+                        else return false;
+                    case Models.AgeGroup.TinyMr:
+                        if (age <= 3 && age >= 2) return true;
+                        else return false;
+                    case Models.AgeGroup.LittleMr:
+                        if (age <= 5 && age >= 4) return true;
+                        else return false;
+                    default:
+                        return false;
+                }
+            }
+
         }
 
         [HttpGet]
@@ -69,7 +136,7 @@ namespace Above_All_Beauty_Pageant.Controllers
             var userId = User.Identity.GetUserId();
             var helper = new Helper.Functions.HelperFunctions();
             var participant = _unitOfWork.Participants.GetParticipantById(Convert.ToInt32(id));
-            if (participant.UserId == userId)
+            if (participant.UserId == userId && participant.paid == false)
             {
                 try
                 {
@@ -80,7 +147,7 @@ namespace Above_All_Beauty_Pageant.Controllers
                     Charge.Currency = "usd";
 
                     // set this if you want to
-                    Charge.Description = Convert.ToString(participant.Id);
+                    Charge.Description = Convert.ToString(participant.Id) + " " + participant.FirstName + " " + participant.LastName;
 
                     Charge.SourceTokenOrExistingSourceId = stripeToken;
 
@@ -95,6 +162,7 @@ namespace Above_All_Beauty_Pageant.Controllers
                     StripeCharge stripeCharge = chargeService.Create(Charge);
 
                     // send receipt with thank you email and set patitiant bool to paid.
+                    _unitOfWork.Receipts.PurchaseMade(participant.Id, 90.00,DateTime.Now);
                     _unitOfWork.Participants.ParticipantPaid(participant.Id);
                     _unitOfWork.Complete();
                     helper.SendEmailNotification(User.Identity.GetUserName(), string.Format("{0} {1}", participant.FirstName, participant.LastName));
@@ -107,7 +175,7 @@ namespace Above_All_Beauty_Pageant.Controllers
                     var e = ex;
                     // card has been declined
                     // redirect to credit card is declined
-                    RedirectToAction("Transaction", new { TransactionMade = true, id = id });
+                    RedirectToAction("Transaction", new { TransactionMade = false, id = id });
                 }
             }
             
@@ -116,9 +184,11 @@ namespace Above_All_Beauty_Pageant.Controllers
 
         public ActionResult Transaction(bool TransactionMade , int id)
         {
+            var participant = _unitOfWork.Participants.GetParticipantById(id);
+            var vm = new TransactionViewModel(TransactionMade, participant.FirstName, participant.LastName);
+            if (TransactionMade) vm.Receipt = _unitOfWork.Receipts.GetReceipt(id);
 
-
-            return View();
+            return View(vm);
         }
 
     }

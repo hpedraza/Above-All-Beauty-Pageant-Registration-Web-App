@@ -2,10 +2,6 @@
 @{
     ViewBag.Title = "Welcome to Above All Beauty Pageant " + User.Identity.Name;
 }
-<!-- Need to create 1) Event details view 2) participant details view -->
-<div id="welcome-container">
-    <h2>@User.Identity.Name</h2>
-</div>
 
 
 @if (Model.Participants.Count() > 0)
@@ -68,51 +64,9 @@
 
 
 <div id="add-participation-container">
-    <div id="upcoming" style="z-index: 0;">
-        <img id="spooky-img" src="~/Images/Website Imgs/Bat-Moon.png" />
-        <h1 align="center" class="upcoming-header">Join our <span class="highlight-orange">Halloween Spooktacular Pageant</span></h1>
-        <h3 align="center" class="upcoming-location-header">at the McAllen Convention Center on October 29, 2016</h3>
-        <hr />
-        <p align="center" class="upcoming-information-headers">Age Categories</p>
-
-        <div id="age-categories">
-            <div id="girls">
-                <h3>Girls</h3>
-                <p>Baby Miss: 01-11 months</p>
-                <p>Pee Wee Miss: 12-23 months</p>
-                <p>Tiny Miss: 2-3 years</p>
-                <p>Little Miss: 4-5 years</p>
-                <p>Petite Miss: 6-8 years</p>
-                <p>Youth Miss: 9-12 years</p>
-                <p>Teen Miss: 13-15 years</p>
-            </div>
-
-            <div id="Boys">
-                <h3>Boys</h3>
-                <p>Baby Mr: 01-11 months</p>
-                <p>Pee Wee Mr: 12-23 months</p>
-                <p>Tiny Mr: 2-3 years</p>
-                <p>Little Mr: 4-5 years</p>
-            </div>
-        </div>
-
-        <div id="pricing">
-            <p align="center" class="upcoming-information-headers">Entry Fee</p>
-            <h4 id="halloween-beauty-pageant">Halloween/Beauty Pageant: $90</h4>
-            <div id="competition-list">
-                <ul>
-                    <li>Best Attire/Costume</li>
-                    <li>Best Smile</li>
-                    <li>Best Personality</li>
-                    <li>Prettiest/Best Eyes</li>
-                    <li>Model look</li>
-                    <li>Photogenic</li>
-                </ul>
-            </div>
-            <p id="extra-photo-p" class="pricing-p">Extra Photo x $5.00 each</p>
-            <h4 align="center" class="pricing-p">All contestants must sell at least 10 raffle tickets to qualify for the Royal Division.</h4>
-        </div>
-
+    <div id="age-rules">
+        <p>Boys must be 5 years old or younger to participate.</p>
+        <p>Girls must be 15 years old or younger to participate.</p>
     </div>
     @using (Html.BeginForm("Index", "User", FormMethod.Post, new { id = "add-participant-form" }))
     {
@@ -195,8 +149,8 @@
             @Html.LabelFor(m => m.AddParticipant.AgeGroup)
             @*Left off here going to create empty dropdown or generate and compare*@
             @Html.DropDownListFor(
-                  a => a.AddParticipant.AgeGroup, new SelectList(new List<object> { }, new { id="age-group-dropdown",@class="form-control" })
-        )
+                  a => a.AddParticipant.AgeGroup, new SelectList(new List<object> { }), new { id="age-group-dropdown",@class="form-control" })
+        
 
             @Html.ValidationMessageFor(m => m.AddParticipant.AgeGroup)
         </div>
@@ -234,5 +188,6 @@
     </div>
 </div>
 
-
-
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,21 +1,25 @@
 ﻿$(document).ready(function () {
-    let dropDown = $("select#AddParticipant_AgeGroup");
+    let dropDown = $("select#age-group-dropdown");
+    let dateInput = $('#add-participant-form > div > input[type="date"]');
+    let gender = 'male';
+
     let maleCategories = [];
     let femaleCategories = [];
+
     let button;
     let id;
     let dob;
-    let gender = 'male';
     let years;
     let months;
     let categoryName;
-    let dateInput = $('#add-participant-form > div > input[type="date"]'); 
+
 
     const enableFormControls = (...divs) => {
         $(divs.join()).css('display', 'block');
     }
 
-    const addToOneofTheCategories = (maleCategories, femaleCategories, group, isParticipantFemale) => {
+    // add category to male list or female list
+    const addToOneofTheCategories = (group, isParticipantFemale) => {
         isParticipantFemale ? femaleCategories.push(group) : maleCategories.push(group);
     }
 
@@ -44,21 +48,22 @@
         $(divs.join()).css('display', 'none');
     }
 
-    const invertButtonDiability = (button , disable) => {
+    const invertButtonDisability = (button , disable) => {
         disable ? button.disabled = true : button.disabled = false;
     }
 
+    // when categories have been fetched - split them into malecategory array and femalecategory array.
     const done = (categories) => {
-
+        console.log(JSON.parse(categories));
         for (let group of JSON.parse(categories)) {
-            addToOneofTheCategories(maleCategories, femaleCategories, group, isFemale(group.group));
+            addToOneofTheCategories(group, isFemale(group.group));
         }
 
-        generateGenderDropDown(maleCategories);
-        dropDown.html(html);
+        dateInput.val() ? FilterDropDown(years) : null;
     }
 
-
+    
+    // when event has been changed - fetch event's categories
     $('select#event-drop-down-list.form-control').change((e) => {
         const dto = {
             eventName: $(e.target).val()
@@ -67,7 +72,7 @@
         enableFormControls('#add-participant-form > div:nth-child(11)',
                            '#add-participant-form > div:nth-child(12)');
 
-        invertButtonDiability(document.getElementById("js-add-participant-button"), false);
+        invertButtonDisability(document.getElementById("js-add-participant-button"), false);
         // service
         $.ajax({
             url: "/api/CategoriesApi",
@@ -76,21 +81,19 @@
             method: "POST",
             success: done,
             fail: () => {
-                alert("sdfd");
+                alert("Something failed.");
             }           
         });
     });
 
+    // When gender is changed show appropriate categories participant can join
     $('input[type="radio"]').change((e) => {
         dropDown.empty();
         e.currentTarget.value === "Female" ? gender = "female" : gender = "male";
-        if (dateInput.val()) {
-            FilterDropDown(years);
-        }
+        dateInput.val() ? FilterDropDown(years) : null;
     });
  
-    // remove participant -- below //
-
+    // remove participant -- ask if they are sure to delete //
     const removeParticipant = () => {
         button.parent().parent().parent().remove();
     }
@@ -101,33 +104,35 @@
         $('#remove-participant').modal('show');
     });
 
+    // Modal button has been confirmed to delete participant
     $('#remove-participant > div > div > div > #remove-participant-button').on('click', () => {
         DeleteParticipant(id);
     })
 
+
+    //service
     const DeleteParticipant = (id) =>
     {
         $.ajax({
             url: "/api/Participant/" + id,
             method: "Delete"
-
         }).done(removeParticipant)
-          .fail(() => { alert("Could not remove participant") });
+          .fail(() => { alert("Could not remove participant. Please contact administrator.") });
     }
 
 
     //-- Client side business logic --//
-
+    // when birthdate has been inserted check for categories participant can join and filter out the rest from drop down
     $(dateInput).on('focusout', () => {
         let dob = new Date($('#add-participant-form > div > input[type="date"]')[0].value);
         let time = Date.now() - dob.getTime();
         let date = new Date(time);
+
         years = Math.abs(date.getUTCFullYear() - 1970);
 
-        FilterDropDown(years);
-
-        
+        FilterDropDown(years);    
     })
+
 
     const FilterDropDown = (year) => {
         if (gender === "male") {
@@ -139,7 +144,9 @@
                 categoryName = "Tiny Mr.";
             } else if (year === 4 || year === 5 ) {
                 categoryName = "Little Mr.";
-            } 
+            } else {
+                categoryName = '';
+            }
         } else {
             if (year === 0) {
                 categoryName = "Baby Miss";
@@ -155,25 +162,25 @@
                 categoryName = "Youth Miss";
             } else if (year === 13 || year === 14 || year === 15) {
                 categoryName = "Teen Miss";
-            } 
+            } else {
+                categoryName = '';
+            }
         }
         Filter();
     }
 
     const Filter = () => {
         dropDown.empty();
-        let html = '';
-        let obj;
-        if (gender === "male") {
-            obj = maleCategories.find(findGroup);
-        } else {
-            obj = femaleCategories.find(findGroup);
-        }
+        console.log(femaleCategories);
+        console.log(categoryName);
+        let obj = gender === "male" ? maleCategories.find(findGroup) : femaleCategories.find(findGroup);
+        console.log(obj);
 
-        html += `<option value="${obj.value}">${obj.group}</option>`;
-        dropDown.html(html);
+        typeof obj === 'undefined' ? dropDown.html(`<option disabled selected value>-- Participant is too old --</option>`) : dropDown.html(`<option value="${obj.value}">${obj.group}</option>`);
+
     }
 
+    const make = () => { }
     const findGroup = (group) => {
         return group.group === categoryName;
     }

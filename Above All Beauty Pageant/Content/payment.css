@@ -14,7 +14,8 @@
     align-items: center;
     justify-content: space-around;
     flex-wrap:wrap;
-    margin-top: 25px;
+    padding-top: 40px;
+    background-color: #f2f2f2;
 }
 
 #payment-container > div:nth-child(1){
@@ -32,15 +33,20 @@
     padding-left: 28px;
 }
 #payment-heading{
-    font-family: comfortaa;
-    font-size: 25px;
+    font-family: "WeblySleek UI",'lucida grande',tahoma,verdana,arial,sans-serif !important;
+
     text-align: center;
-    background-color: #f8EEE7;
-    margin:0;
-    padding-top: 10px;
+    background-color: #f2f2f2;
+    margin:0 auto;
+    padding-top: 35px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #49274a;
     color: #94618e;
+}
+
+#payment-heading > h2{
+    width: 95%;
+    margin: 0 auto;
+    font-size: 39px;
 }
 .glyphicon{
     position: absolute;

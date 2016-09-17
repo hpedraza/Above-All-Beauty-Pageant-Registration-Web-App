@@ -11,7 +11,7 @@ namespace Above_All_Beauty_Pageant.ViewModels
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email (this will be your user name)")]
+        [Display(Name = "Email (User Name)")]
         public string Email { get; set; }
 
         [Required]
@@ -33,9 +33,10 @@ namespace Above_All_Beauty_Pageant.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Your must provide a Phone Number")]
         [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Contact Number")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string PhoneNumber { get; set; }
 
 

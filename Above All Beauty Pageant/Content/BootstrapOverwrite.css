@@ -21,11 +21,15 @@
     border-color: #49274a
 }
 
-.table-striped > tbody > tr:nth-of-type(odd){
-    background-color: #f8eee7;
+.navbar{
+    margin-bottom: 0px;
 }
 
-input.form-control{
+.table-striped > tbody > tr:nth-of-type(odd){
+   /* background-color: #f8eee7; */
+}
+
+.form-control{
     box-shadow: none !important;
     -webkit-box-shadow: !important;
     -webkit-transition: !important;
@@ -35,6 +39,5 @@ input.form-control{
 
 .payment-errors{
     color: red;
-
     font-family:  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

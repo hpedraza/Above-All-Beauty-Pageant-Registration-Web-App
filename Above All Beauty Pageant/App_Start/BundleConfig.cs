@@ -13,7 +13,6 @@ namespace Above_All_Beauty
                         "~/Scripts/Mine/carousel.js",
                         "~/Scripts/Mine/googleMaps.js",
                         "~/Scripts/Mine/SmoothScrolling.js",
-                        "~/Scripts/Mine/collapse-navbar-button.js",
                         "~/Scripts/Mine/add-participant.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -35,7 +34,8 @@ namespace Above_All_Beauty
                       "~/Content/carousel.css",
                       "~/Content/add-participant.css",
                       "~/Content/payment.css",
-                      "~/Content/event-details.css"));
+                      "~/Content/event-details.css",
+                      "~/Content/Account.css"));
         }
     }
 }

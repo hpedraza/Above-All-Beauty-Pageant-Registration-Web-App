@@ -277,6 +277,7 @@
     <Compile Include="Core\Repositories\ICategoryRepository.cs" />
     <Compile Include="Core\Repositories\IEventRepository.cs" />
     <Compile Include="Core\Repositories\IParticipantRepository.cs" />
+    <Compile Include="Core\Repositories\IReceiptRepository.cs" />
     <Compile Include="DTO\categoryDTO.cs" />
     <Compile Include="DTO\eventsNameDTO.cs" />
     <Compile Include="Helper\Functions\HelperFunctions.cs" />
@@ -332,7 +333,13 @@
     <Compile Include="Migrations\201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.Designer.cs">
       <DependentUpon>201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609172200168_AddReceiptModel.cs" />
+    <Compile Include="Migrations\201609172200168_AddReceiptModel.Designer.cs">
+      <DependentUpon>201609172200168_AddReceiptModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Receipt.cs" />
     <Compile Include="Persistant\Repository\CategoryRespository.cs" />
+    <Compile Include="Persistant\Repository\ReceiptRepository.cs" />
     <Compile Include="Persistant\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="DAL\AboveAllContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -361,6 +368,7 @@
     <Compile Include="ViewModels\TransactionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Account.css" />
     <Content Include="Content\add-participant.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -401,6 +409,12 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\weblysleekuil.ttf" />
+    <Content Include="fonts\weblysleekuili.ttf" />
+    <Content Include="fonts\weblysleekuisb.ttf" />
+    <Content Include="fonts\weblysleekuisbi.ttf" />
+    <Content Include="fonts\weblysleekuisl.ttf" />
+    <Content Include="fonts\weblysleekuisli.ttf" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -418,7 +432,6 @@
     <Content Include="Scripts\Mine\carousel.js" />
     <Content Include="Scripts\Mine\collapse-navbar-button.js" />
     <Content Include="Scripts\Mine\googleMaps.js" />
-    <Content Include="Scripts\Mine\SmoothScrolling.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -465,6 +478,10 @@
     <Content Include="Views\Shared\_PaymentForm.cshtml" />
     <Content Include="Views\User\Payment.cshtml" />
     <Content Include="Views\Event\CategoryDetails.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Shared\_HomeSlideShow.cshtml" />
+    <Content Include="Views\Shared\_Testimonals.cshtml" />
+    <Content Include="Views\User\Transaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -520,6 +537,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.resx">
       <DependentUpon>201609132053232_UpdatedParticipantsPropertiesDataAnnotations1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609172200168_AddReceiptModel.resx">
+      <DependentUpon>201609172200168_AddReceiptModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

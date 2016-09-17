@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="http://maps.googleapis.com/maps/api/js"></script>
     <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700|Comfortaa:400|Lora:400|Quicksand:400' rel='stylesheet' type='text/css'>
+    
 
 
     <!-- Stripe.js -->
@@ -30,18 +31,8 @@
                 <a href="~/Home/Index"><img src="~/Images/Website Imgs/logo.png" id="logo" /></a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right ">
-                    @if (!Request.IsAuthenticated)
-                    {
-                        <li><a href="#home-jumbotron">General Information</a></li>
-                        <li><a href="#upcoming">Upcoming Events</a></li>
-                        <li><a href="#about-us">About Us</a></li>
-                    }
-                    else
-                    {
-                        <li><a href="~/Home/Index">General Information</a></li>
-                    }
-
+                <ul class="nav navbar-nav navbar-right ">  
+                    <li><a href="~/Home/Index">General Information</a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

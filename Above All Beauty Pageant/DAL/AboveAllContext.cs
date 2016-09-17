@@ -12,6 +12,7 @@ public class AboveAllContext : IdentityDbContext<ApplicationUser>
     public DbSet<Event> Events { get; set; }
     public DbSet<EventCategory> Categories { get; set; }
     public DbSet<Address> Addresses { get; set; }
+    public DbSet<Receipt> Receipts { get; set; }
 
     public AboveAllContext()
         : base("DefaultConnection", throwIfV1Schema: false)

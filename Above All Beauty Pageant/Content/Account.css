@@ -1,0 +1,32 @@
+﻿@font-face{
+    font-family: "WeblySleek UI";
+    src: url(../fonts/weblysleekuil.ttf) format('truetype');
+}
+
+
+.log-in {
+    font-family: "WeblySleek UI",'lucida grande',tahoma,verdana,arial,sans-serif;
+    font-size: 28px;
+}
+#account-body{
+    padding-left: 75px;
+    background-color: #f2f2f2;
+    padding-top: 30px;
+}
+
+#log-in-button{
+    color: white;
+    background-color: rgba(148, 97, 142, 1);
+}
+
+.checkbox {
+    padding-bottom: 8px;
+}
+.checkbox > div > div > input[type='checkbox']{
+    margin-left: 0px !important; 
+    position: unset;
+}
+
+#register-button{
+    margin-bottom: 15px;
+}

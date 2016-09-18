@@ -168,24 +168,26 @@ namespace Above_All_Beauty_Pageant.Controllers
                     helper.SendEmailNotification(User.Identity.GetUserName(), string.Format("{0} {1}", participant.FirstName, participant.LastName));
 
                     // DIRECT TO PAYMENT HAS BEEN MADE
-                    RedirectToAction("Transaction", new { TransactionMade = true, id = id });
+                    return RedirectToAction("Transaction", new { TransactionMade = true, id = id});
+                }
+                catch (StripeException ex)
+                {
+                    return RedirectToAction("Transaction", new { TransactionMade = false, id = id , error=ex.Message});
                 }
                 catch (Exception ex)
                 {
-                    var e = ex;
-                    // card has been declined
-                    // redirect to credit card is declined
-                    RedirectToAction("Transaction", new { TransactionMade = false, id = id });
+                   
+                    return RedirectToAction("Transaction", new { TransactionMade = false, id = id});
                 }
             }
             
             return RedirectToAction("Index");
         }
 
-        public ActionResult Transaction(bool TransactionMade , int id)
+        public ActionResult Transaction(bool TransactionMade , int id, string error = null)
         {
             var participant = _unitOfWork.Participants.GetParticipantById(id);
-            var vm = new TransactionViewModel(TransactionMade, participant.FirstName, participant.LastName);
+            var vm = new TransactionViewModel(TransactionMade, participant.FirstName, participant.LastName, error, User.Identity.Name);
             if (TransactionMade) vm.Receipt = _unitOfWork.Receipts.GetReceipt(id);
 
             return View(vm);

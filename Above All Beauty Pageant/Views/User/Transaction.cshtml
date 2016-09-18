@@ -4,32 +4,65 @@
     ViewBag.Title = "Transaction";
    
 }
+<style>
+    .transaction-container {
+        padding: 45px;
+        background-color: #f2f2f2;
+    }
+
+        .transaction-container > p {
+            font-family: "WeblySleek UI",'lucida grande',tahoma,verdana,arial,sans-serif;
+        }
+</style>
 
 @if (Model.PaymentMade == true)
 {
     // thank you and show reciept
-    <div><p>Thank you for registering! We look forward to seeing you at the Above All Beauty Pageant!</p></div>
-    <table class="table table-striped table-hover table-responsive table-condensed">
-        <thead>
-            <tr>
-                <th>Receipt#</th>
-                <th>Total Fee</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Model.Receipt.Id</td>
-                <td>$@Model.Receipt.Amount</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="transaction-container">
+        <div><p>Thank you for registering! We look forward to seeing you at the Above All Beauty Pageant!</p></div>
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            <thead>
+                <tr>
+                    <th>Receipt#</th>
+                    <th>Date of purchase</th>
+                    <th>Purchaser</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Receipt.Id</td>
+                    <td>@Model.Receipt.PurchaseDate</td>
+                    <td>@Model.Buyer</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-hover table-responsive table-condensed">
+            <tbody>
+                <tr>
+                    <td>Description</td>
+                    <td><p>Registration fee paid for @Model.FirstName @Model.LastName.</p></td>
+                </tr>
+                <tr>
+                    <td>Fee</td>
+                    <td>$90.00</td>
+                </tr>
+                <tr>
+                    <td>Amount Paid</td>
+                    <td>$90.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 }
- else{
+else
+{
+
+
 
     // error credit card declined
-    <div>
-        <p>
-            Sorry, your credit card has been declined.  If by any chance you were charged please disregard this message and contact Lilia Pedraza at 956-223-8844.  We at Above All will make sure to accommodate all your needs.
+    <div class="transaction-container">
+        <p style="font-size: 22px">
+            Sorry, @Model.Error  Please contact Lilia Pedraza at 956-223-8844 about your error if further assistance is needed.  We at Above All will make sure to accommodate all your needs as soon as we can.
         </p>
     </div>
 

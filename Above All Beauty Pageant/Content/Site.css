@@ -239,6 +239,21 @@ input#log-in-button , input#register-button{
     width: 100%;
 }
 
+/* Container holds event details and participation details*/
+#forms-container{
+    display: flex !important; 
+    flex-direction: row;
+    flex-wrap:wrap;
+    align-content:  stretch;
+    justify-content: flex-start;
+    align-items: stretch;
+    
+}
+#forms-container > form:nth-child(1) > .btn-primary{
+    background-color: rgba(148,97,142,1) !important;
+    border-color: #f2f2f2 !important;
+  
+}
 footer {
     background-color: #49274A;
     color: white;
@@ -294,8 +309,11 @@ footer > div > a > img {
     #about-above-all {
         font-size: 1.2em;
         font-weight: 700
+
     }
 }
+
+
 @media (min-width: 1000px) {
     #coordinators > div > img {
         width: 250px;

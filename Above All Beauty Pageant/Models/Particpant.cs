@@ -68,6 +68,16 @@ namespace Above_All_Beauty_Pageant.Models
             paid = true;
         }
 
+        public void Update(string eyeColor, string favoriteColor, string favoriteFood, string hairColor, string hobbies, string sponsor)
+        {
+            EyeColor = eyeColor;
+            favoriteColor = FavoriteColor;
+            FavoriteFood = favoriteFood;
+            HairColor = hairColor;
+            Hobbies = hobbies;
+            Sponsor = sponsor;
+        }
+
         public Participant(string FirstName, string LastName, Gender Gender ,string UserId, int eventId, DateTime dob, string hairColor, string eyeColor, string favoriteColor, string favoriteFood, string hobbies, string sponsor = null)
         {
             this.FirstName = FirstName;

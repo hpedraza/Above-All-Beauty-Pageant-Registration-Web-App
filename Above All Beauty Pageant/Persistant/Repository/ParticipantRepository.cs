@@ -83,5 +83,7 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
             _context.Participants.Remove(participantToRemove);
             return userId;
         }
+
+     
     }
 }

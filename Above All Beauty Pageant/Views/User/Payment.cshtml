@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Payment";
 }
+<div class="loader"></div>
 <div id="payment-heading">
     <h2 >Payment to register @Model.FirstName</h2>
 </div>
@@ -156,6 +157,7 @@
                 };
 
                 $('#SubmitFormButton').on('click', () => {
+                    $(".loader").fadeOut("slow");
                     $form.get(0).submit();
                 });
 

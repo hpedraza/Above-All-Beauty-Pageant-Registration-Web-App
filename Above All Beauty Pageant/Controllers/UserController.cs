@@ -21,11 +21,14 @@ namespace Above_All_Beauty_Pageant.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
+
+        public ActionResult Index(ParticipantViewModel participant = null)
         {
             var Participants = _unitOfWork.Participants.GetParticipants(User.Identity.GetUserId());
             var vm = _unitOfWork.Participants.GenreateParticipantIndexViewModel(Participants);
-
+            vm.AddParticipant = participant;
+                
+            
             vm.EventNames = _unitOfWork.Events.EventNames();
             return View(vm);
         }
@@ -36,14 +39,12 @@ namespace Above_All_Beauty_Pageant.Controllers
         {
             if (!ModelState.IsValid)
             {
-                vm.EventNames = _unitOfWork.Events.EventNames();
-                return View("Index" , vm);
+                return RedirectToAction("Index" , vm.AddParticipant);
             }else
             {
                 if (!CheckIfParticipantCanParticipateInCategory(vm))
                 {
-                    vm.EventNames = _unitOfWork.Events.EventNames();
-                    return View("Index", vm);
+                    return RedirectToAction("Index", vm.AddParticipant);
                 }
             }
             var userId = User.Identity.GetUserId();
@@ -92,7 +93,6 @@ namespace Above_All_Beauty_Pageant.Controllers
                         else return false;
                     default:
                         return false;
-
                 }
             }
             else
@@ -142,56 +142,73 @@ namespace Above_All_Beauty_Pageant.Controllers
                 {
                     // make payment
                     var Charge = new StripeChargeCreateOptions();
-                    // always set these properties
+
                     Charge.Amount = 9000;
                     Charge.Currency = "usd";
-
-                    // set this if you want to
                     Charge.Description = Convert.ToString(participant.Id) + " " + participant.FirstName + " " + participant.LastName;
-
                     Charge.SourceTokenOrExistingSourceId = stripeToken;
-
-
-                    //|\\__--v ERROR v--__//|\\
-                    //Charge.Metadata.Add("ParticipantId", id);
-
-                    // (not required) set this to false if you don't want to capture the charge yet - requires you call capture later
                     Charge.Capture = true;
 
                     var chargeService = new StripeChargeService();
                     StripeCharge stripeCharge = chargeService.Create(Charge);
 
-                    // send receipt with thank you email and set patitiant bool to paid.
-                    _unitOfWork.Receipts.PurchaseMade(participant.Id, 90.00,DateTime.Now);
+                    // set participant's paid prop. to true
+                    _unitOfWork.Receipts.PurchaseMade(participant.Id, 90.00, DateTime.Now);
                     _unitOfWork.Participants.ParticipantPaid(participant.Id);
                     _unitOfWork.Complete();
+
+                    // send receipt with thank you email
                     helper.SendEmailNotification(User.Identity.GetUserName(), string.Format("{0} {1}", participant.FirstName, participant.LastName));
 
-                    // DIRECT TO PAYMENT HAS BEEN MADE
-                    return RedirectToAction("Transaction", new { TransactionMade = true, id = id});
+                    return RedirectToAction("Transaction", new { TransactionMade = true, id = id });
                 }
                 catch (StripeException ex)
                 {
-                    return RedirectToAction("Transaction", new { TransactionMade = false, id = id , error=ex.Message});
+                    return RedirectToAction("Transaction", new { TransactionMade = false, id = id, error = ex.Message });
                 }
                 catch (Exception ex)
                 {
-                   
-                    return RedirectToAction("Transaction", new { TransactionMade = false, id = id});
+
+                    return RedirectToAction("Transaction", new { TransactionMade = true, id = id });
                 }
             }
-            
-            return RedirectToAction("Index");
+
+           return View("Index");
         }
 
-        public ActionResult Transaction(bool TransactionMade , int id, string error = null)
+        public ActionResult Transaction(bool TransactionMade , int id, string error = "")
         {
             var participant = _unitOfWork.Participants.GetParticipantById(id);
-            var vm = new TransactionViewModel(TransactionMade, participant.FirstName, participant.LastName, error, User.Identity.Name);
+            var vm = new TransactionViewModel(TransactionMade, participant.FirstName, participant.LastName, error, _unitOfWork.Users.GetUsersFullName(User.Identity.GetUserId()) , participant.EventCategory.Event.EventName);
             if (TransactionMade) vm.Receipt = _unitOfWork.Receipts.GetReceipt(id);
 
             return View(vm);
         }
 
+        [HttpGet]
+        public ActionResult ParticipantDetails(int id)
+        {
+            var participant = _unitOfWork.Participants.GetParticipantById(id);
+            var vm = new ParticipantViewModel(participant.FirstName,participant.LastName, participant.Id, participant.HairColor , participant.Hobbies,participant.EyeColor,participant.FavoriteFood,participant.FavoriteColor,participant.Sponsor);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditParticipant(ParticipantViewModel vm ,string id)
+        {
+            var Id = Convert.ToInt32(id);
+            var participant = _unitOfWork.Participants.GetParticipantById(Id);
+
+            participant.Update(vm.EyeColor, vm.FavoriteColor, vm.FavoriteFood, vm.HairColor, vm.Hobbies, vm.Sponsor);
+            if (User.Identity.GetUserId() == participant.UserId)
+            {
+                _unitOfWork.Complete();
+                return RedirectToAction("ParticipantDetails", new { id = Id } );
+            }
+
+
+            return View("Index");
+        }
     }
 }

@@ -12,6 +12,33 @@
     let years;
     let months;
     let categoryName;
+    let eventNameDropDown = $('select#event-drop-down-list.form-control');
+
+    let AddButton = document.getElementById("js-add-participant-button");
+
+    $(window).resize(() => {
+        if (window.innerWidth < 450) {
+            $('#forms-container > form:nth-child(1) > .btn').prop('value', 'Event');
+            $('#forms-container > form:nth-child(2) > .btn').prop('value', 'Participant');
+        }
+        else {
+            $('#forms-container > form:nth-child(1) > .btn').prop('value', 'Event Details');
+            $('#forms-container > form:nth-child(2) > .btn').prop('value', 'Participant Details');
+        }
+    })
+
+
+    // when categories have been fetched - split them into malecategory array and femalecategory array.
+    const done = (categories) => {
+        console.log(JSON.parse(categories));
+        for (let group of JSON.parse(categories)) {
+            addToOneofTheCategories(group, isFemale(group.group));
+        }
+
+        dateInput.val() ? FilterDropDown(years) : null;
+    }
+
+
 
 
     const enableFormControls = (...divs) => {
@@ -48,32 +75,15 @@
         $(divs.join()).css('display', 'none');
     }
 
-    const invertButtonDisability = (button , disable) => {
+    const disableButton = (button, disable) => {
         disable ? button.disabled = true : button.disabled = false;
     }
 
-    // when categories have been fetched - split them into malecategory array and femalecategory array.
-    const done = (categories) => {
-        console.log(JSON.parse(categories));
-        for (let group of JSON.parse(categories)) {
-            addToOneofTheCategories(group, isFemale(group.group));
-        }
-
-        dateInput.val() ? FilterDropDown(years) : null;
-    }
-
-    
-    // when event has been changed - fetch event's categories
-    $('select#event-drop-down-list.form-control').change((e) => {
+    const GetCategories = () => {
         const dto = {
-            eventName: $(e.target).val()
+            eventName: $('select#event-drop-down-list.form-control :selected').text()
         }
 
-        enableFormControls('#add-participant-form > div:nth-child(11)',
-                           '#add-participant-form > div:nth-child(12)');
-
-        invertButtonDisability(document.getElementById("js-add-participant-button"), false);
-        // service
         $.ajax({
             url: "/api/CategoriesApi",
             data: dto,
@@ -82,9 +92,38 @@
             success: done,
             fail: () => {
                 alert("Something failed.");
-            }           
+            }
         });
+    }
+
+ 
+    if ($('select#event-drop-down-list.form-control :selected').text() === '-- Event to Attend --') {
+        disableButton(AddButton, true)
+    } else {
+        alert('ssdfsdfdf');
+        enableFormControls('#add-participant-form > div:nth-child(11)',
+                   '#add-participant-form > div:nth-child(12)');
+        disableButton(AddButton, false);
+        GetCategories();
+    }
+
+
+
+
+
+    
+    // when event has been changed - fetch event's categories
+    eventNameDropDown.change((e) => {
+        enableFormControls('#add-participant-form > div:nth-child(11)',
+                           '#add-participant-form > div:nth-child(12)');
+
+        disableButton(AddButton, false);
+
+        // service
+        GetCategories();
     });
+
+
 
     // When gender is changed show appropriate categories participant can join
     $('input[type="radio"]').change((e) => {
@@ -180,7 +219,7 @@
 
     }
 
-    const make = () => { }
+
     const findGroup = (group) => {
         return group.group === categoryName;
     }

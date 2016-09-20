@@ -96,5 +96,18 @@ namespace Above_All_Beauty_Pageant.ViewModels
             Paid = paid;
             Id = id;
         }
+
+        public ParticipantViewModel(string FN, string ln, int id , string hairColor, string hobbies, string eyeColor, string favoriteFood, string favoriteColor , string sponsor = null)
+        {
+            FirstName = FN;
+            LastName = ln;
+            Id = id;
+            Hobbies = hobbies;
+            EyeColor = eyeColor;
+            HairColor = hairColor;
+            FavoriteColor = favoriteColor;
+            FavoriteFood = favoriteFood;
+            Sponsor = sponsor;
+        }
     }
 }

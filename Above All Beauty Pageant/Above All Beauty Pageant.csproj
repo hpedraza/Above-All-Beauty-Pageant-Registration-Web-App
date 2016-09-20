@@ -278,6 +278,7 @@
     <Compile Include="Core\Repositories\IEventRepository.cs" />
     <Compile Include="Core\Repositories\IParticipantRepository.cs" />
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
+    <Compile Include="Core\Repositories\IUserRepository.cs" />
     <Compile Include="DTO\categoryDTO.cs" />
     <Compile Include="DTO\eventsNameDTO.cs" />
     <Compile Include="Helper\Functions\HelperFunctions.cs" />
@@ -340,6 +341,7 @@
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Persistant\Repository\CategoryRespository.cs" />
     <Compile Include="Persistant\Repository\ReceiptRepository.cs" />
+    <Compile Include="Persistant\Repository\UserRepository.cs" />
     <Compile Include="Persistant\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="DAL\AboveAllContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -391,6 +393,7 @@
     <Content Include="Images\HomeSlideShow\Event\beauty-pageant-contestant-5.JPG" />
     <Content Include="Images\HomeSlideShow\Event\royal-division-winner.JPG" />
     <Content Include="Images\HomeSlideShow\Parade\fourth-of-july-parade.jpg" />
+    <Content Include="Images\page-loader.gif" />
     <Content Include="Images\sponsors\elegance-shutters.jpg" />
     <Content Include="Images\sponsors\texas-star-logo.jpg" />
     <Content Include="Images\Website Imgs\Bat-Moon.png" />
@@ -482,6 +485,7 @@
     <Content Include="Views\Shared\_HomeSlideShow.cshtml" />
     <Content Include="Views\Shared\_Testimonals.cshtml" />
     <Content Include="Views\User\Transaction.cshtml" />
+    <Content Include="Views\User\ParticipantDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

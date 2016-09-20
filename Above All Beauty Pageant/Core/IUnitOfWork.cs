@@ -14,6 +14,7 @@ namespace Above_All_Beauty_Pageant.Core
         IParticipantRepository Participants { get; }
         ICategoryRepository Category { get; }
         IReceiptRepository Receipts { get; }
+        IUserRepository Users { get; }
 
         void Complete();
     }

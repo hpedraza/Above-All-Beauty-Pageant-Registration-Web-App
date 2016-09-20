@@ -1,0 +1,60 @@
+﻿ @model Above_All_Beauty_Pageant.ViewModels.ParticipantViewModel
+@{
+    ViewBag.Title = "ParticipantDetails";
+}
+
+
+<div id="add-participation-container">
+    <div id="age-rules">
+        <p>@Model.FirstName @Model.LastName's details. Go ahead, edit participant's information if you spot any mistakes.</p>
+
+    </div>
+    @using (Html.BeginForm("EditParticipant", "User", FormMethod.Post, new { id = "add-participant-form" }))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="form-group">
+            
+            @Html.LabelFor(m => m.HairColor) <br />
+            @Html.TextBoxFor(m => m.HairColor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.HairColor)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EyeColor) <br />
+            @Html.TextBoxFor(m => m.EyeColor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.EyeColor)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FavoriteColor) <br />
+            @Html.TextBoxFor(m => m.FavoriteColor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FavoriteColor)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FavoriteFood) <br />
+            @Html.TextBoxFor(m => m.FavoriteFood, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FavoriteFood)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Hobbies) <br />
+            @Html.TextBoxFor(m => m.Hobbies, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Hobbies)
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Sponsor) <br />
+            @Html.TextBoxFor(m => m.Sponsor, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Sponsor)
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Update Participant" />
+    }
+
+
+</div>

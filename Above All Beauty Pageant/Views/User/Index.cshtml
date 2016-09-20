@@ -45,14 +45,21 @@
                         }
                         else
                         {
-                            using (Html.BeginForm("CategoryDetails", "Event", FormMethod.Post))
-                            {
-                                @Html.Hidden("AgeGroup", Convert.ToString(participant.AgeGroup))
-                                @Html.Hidden("EventName", Convert.ToString(participant.EventName));
-                                @Html.Hidden("Id" , Convert.ToString(participant.Id))
-                                <input type="submit" class="btn btn-primary" data-event="@participant.EventName" value="Event Details" />
-                            }
+                            <div id="forms-container">
+                                @using (Html.BeginForm("CategoryDetails", "Event", FormMethod.Post))
+                                {
+                                    @Html.Hidden("AgeGroup", Convert.ToString(participant.AgeGroup))
+                                    @Html.Hidden("EventName", Convert.ToString(participant.EventName));
+                                    @Html.Hidden("Id", Convert.ToString(participant.Id))
+                                    <input type="submit" class="btn btn-primary" data-event="@participant.EventName" value="Event Details" />
 
+                                }
+                                @using (Html.BeginForm("ParticipantDetails", "User", FormMethod.Get))
+                                {
+                                    <input type="hidden" value="@participant.Id" name="id">
+                                    <input type="submit" class="btn btn-default" value="Participant Details" />
+                                }
+                            </div>
                         }
                     </td>
                 </tr>
@@ -71,9 +78,9 @@
     @using (Html.BeginForm("Index", "User", FormMethod.Post, new { id = "add-participant-form" }))
     {
 
-        @Html.AntiForgeryToken()
+       @Html.AntiForgeryToken()
 
-        <div class="form-group">
+       <div class="form-group">
             <h3>Add Participant</h3>
             @Html.LabelFor(m => m.AddParticipant.FirstName)
             @Html.TextBoxFor(m => m.AddParticipant.FirstName, new { @class = "form-control" })
@@ -147,7 +154,7 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.AddParticipant.AgeGroup)
-            @*Left off here going to create empty dropdown or generate and compare*@
+
             @Html.DropDownListFor(
                   a => a.AddParticipant.AgeGroup, new SelectList(new List<object> { }), new { id="age-group-dropdown",@class="form-control" })
         

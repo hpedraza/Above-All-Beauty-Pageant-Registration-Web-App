@@ -16,6 +16,8 @@ namespace Above_All_Beauty_Pageant.Persistant
         public IEventRepository Events { get; private set; }
         public ICategoryRepository Category { get; private set; }
         public IReceiptRepository Receipts { get; private set; }
+        public IUserRepository Users { get; private set; }
+
         public UnitOfWork(AboveAllContext db)
         {
             _context = db;
@@ -23,6 +25,7 @@ namespace Above_All_Beauty_Pageant.Persistant
             Events = new EventRepository(db);
             Category = new CategoryRespository(db);
             Receipts = new ReceiptRepository(db);
+            Users = new UserRepository(db);
 
         }
 

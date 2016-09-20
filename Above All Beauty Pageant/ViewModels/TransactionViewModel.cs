@@ -10,16 +10,17 @@ namespace Above_All_Beauty_Pageant.ViewModels
         public string LastName { get; set; }
         public string Error { get; set; }
         public Receipt Receipt { get; set; }
-
+        public string EventName { get; set; }
         public TransactionViewModel() { }
 
-        public TransactionViewModel(bool made , string firstName, string lastName, string error, string buyer)
+        public TransactionViewModel(bool made , string firstName, string lastName, string error, string buyer, string eventName)
         {
             PaymentMade = made;
             FirstName = firstName;
             LastName = lastName;
             Error = error;
             Buyer = buyer;
+            EventName = eventName;
         }
     }
 }

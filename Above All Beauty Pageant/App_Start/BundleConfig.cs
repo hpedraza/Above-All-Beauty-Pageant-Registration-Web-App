@@ -9,11 +9,13 @@ namespace Above_All_Beauty
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/Mine/lib.js",
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/Mine/carousel.js",
                         "~/Scripts/Mine/googleMaps.js",
                         "~/Scripts/Mine/SmoothScrolling.js",
-                        "~/Scripts/Mine/add-participant.js"));
+                        "~/Scripts/Mine/add-participant.js",
+                        "~/Scripts/Mine/lrp.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -35,7 +37,8 @@ namespace Above_All_Beauty
                       "~/Content/add-participant.css",
                       "~/Content/payment.css",
                       "~/Content/event-details.css",
-                      "~/Content/Account.css"));
+                      "~/Content/Account.css",
+                      "~/Content/admin-style.css"));
         }
     }
 }

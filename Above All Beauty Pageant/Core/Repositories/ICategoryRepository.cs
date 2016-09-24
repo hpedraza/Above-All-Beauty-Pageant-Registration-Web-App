@@ -1,4 +1,5 @@
 ﻿using Above_All_Beauty_Pageant.Models;
+using Above_All_Beauty_Pageant.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Above_All_Beauty_Pageant.Core.Repositories
     {
         int GetCategoryIdByName(AgeGroup ageGroup);
         List<EventCategory> GetEventsCategories(string eventName);
+        List<DetailsViewModel> GetDetails(string eventName);
     }
 }

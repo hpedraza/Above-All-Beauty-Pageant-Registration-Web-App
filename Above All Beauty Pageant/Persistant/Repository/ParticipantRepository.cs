@@ -84,6 +84,21 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
             return userId;
         }
 
-     
+        public List<CategoriesParticipantsViewModel> AllParticipantsInCategory(string eventName, int catValue)
+        {
+            var category = ((AgeGroup)catValue);
+            var eventId = _context.Events.FirstOrDefault(e => e.EventName == eventName).Id;
+            var participantList = _context.Participants.Where(p => p.EventCategory.Event.Id == eventId &&
+                                               p.EventCategory.Category == category).ToList();
+            List<CategoriesParticipantsViewModel> vm = new List<CategoriesParticipantsViewModel>();
+            foreach(var p in participantList)
+            {
+                vm.Add(new CategoriesParticipantsViewModel(p.FirstName,p.LastName,p.Id));
+            }
+
+            return vm;
+        }
+
+
     }
 }

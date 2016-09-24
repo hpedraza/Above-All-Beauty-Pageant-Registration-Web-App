@@ -11,7 +11,10 @@ namespace Above_All_Beauty.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            if (Request.IsAuthenticated)
+                return RedirectToAction("Index", "User", null);
+            else
+                return View();
         }
 
         public ActionResult About()

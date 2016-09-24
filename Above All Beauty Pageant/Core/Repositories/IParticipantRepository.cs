@@ -16,5 +16,7 @@ namespace Above_All_Beauty_Pageant.Core.Repositories
         Participant GetParticipantById(int id);
         void ParticipantPaid(int id);
         string DeleteParticipant(int id);
+        List<CategoriesParticipantsViewModel> AllParticipantsInCategory(string eventName, int catValue);
+
     }
 }

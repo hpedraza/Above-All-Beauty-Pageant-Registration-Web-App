@@ -31,8 +31,16 @@
                 <a href="~/Home/Index"><img src="~/Images/Website Imgs/logo.png" id="logo" /></a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right ">  
-                    <li><a href="~/Home/Index">General Information</a></li>
+                <ul class="nav navbar-nav navbar-right "> 
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li><a href="~/ReRoute/Index">General Information</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Home/Index">General Information</a></li>
+                    }
+                        
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

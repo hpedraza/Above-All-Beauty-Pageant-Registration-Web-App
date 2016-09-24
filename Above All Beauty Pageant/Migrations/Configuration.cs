@@ -5,6 +5,8 @@ namespace Above_All_Beauty_Pageant.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AboveAllContext>
     {
@@ -12,6 +14,7 @@ namespace Above_All_Beauty_Pageant.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
+
 
         protected override void Seed(AboveAllContext context)
         {
@@ -39,6 +42,7 @@ namespace Above_All_Beauty_Pageant.Migrations
             context.Addresses.AddOrUpdate(a => a.Id, Event1Location);
             context.SaveChanges();
                         */
+ 
             var date = new DateTime(2016, 10, 29);
             var Event1 = new Event("Spooktacular Beauty Pageant", 10, date);
 

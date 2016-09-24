@@ -268,10 +268,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgeGroup.cs" />
     <Compile Include="Controllers\api\CategoriesApiController.cs" />
+    <Compile Include="Controllers\api\GetAllParticipantsController.cs" />
     <Compile Include="Controllers\api\ParticipantController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReRouteController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Repositories\ICategoryRepository.cs" />
@@ -280,7 +282,7 @@
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
     <Compile Include="Core\Repositories\IUserRepository.cs" />
     <Compile Include="DTO\categoryDTO.cs" />
-    <Compile Include="DTO\eventsNameDTO.cs" />
+    <Compile Include="DTO\eventsDTO.cs" />
     <Compile Include="Helper\Functions\HelperFunctions.cs" />
     <Compile Include="Migrations\201609051830506_AddedManyToManyRelationshipBetweenEventAndCategory.cs" />
     <Compile Include="Migrations\201609051830506_AddedManyToManyRelationshipBetweenEventAndCategory.Designer.cs">
@@ -360,6 +362,8 @@
     <Compile Include="Persistant\Repository\ParticipantRepository.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\FullEventDetailsViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -372,6 +376,7 @@
   <ItemGroup>
     <Content Include="Content\Account.css" />
     <Content Include="Content\add-participant.css" />
+    <Content Include="Content\admin-style.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -435,6 +440,8 @@
     <Content Include="Scripts\Mine\carousel.js" />
     <Content Include="Scripts\Mine\collapse-navbar-button.js" />
     <Content Include="Scripts\Mine\googleMaps.js" />
+    <Content Include="Scripts\Mine\lib.js" />
+    <Content Include="Scripts\Mine\lrp.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />

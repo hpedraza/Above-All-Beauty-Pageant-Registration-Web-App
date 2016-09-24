@@ -5,8 +5,9 @@ using System.Web;
 
 namespace Above_All_Beauty_Pageant.DTO
 {
-    public class eventsNameDTO
+    public class eventsDTO
     {
         public string eventName { get; set; }
+        public int catValue { get; set; }
     }
 }

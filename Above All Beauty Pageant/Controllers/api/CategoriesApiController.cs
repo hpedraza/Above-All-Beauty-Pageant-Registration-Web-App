@@ -27,7 +27,7 @@ namespace Above_All_Beauty_Pageant.Controllers.api
 
 
         [HttpPost]
-        public IHttpActionResult getCategories(eventsNameDTO dto)
+        public IHttpActionResult getCategories(eventsDTO dto)
         {
             try {
                 var helper = new HelperFunctions();
@@ -48,9 +48,8 @@ namespace Above_All_Beauty_Pageant.Controllers.api
 
                return Ok(new JavaScriptSerializer().Serialize(catNames));
             }
-            catch (Exception ex)
+            catch 
             {
-                var x = ex;
                 return BadRequest();
             }
 

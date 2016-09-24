@@ -27,8 +27,10 @@ namespace Above_All_Beauty_Pageant.Controllers
             var Participants = _unitOfWork.Participants.GetParticipants(User.Identity.GetUserId());
             var vm = _unitOfWork.Participants.GenreateParticipantIndexViewModel(Participants);
             vm.AddParticipant = participant;
-                
-            
+
+
+
+
             vm.EventNames = _unitOfWork.Events.EventNames();
             return View(vm);
         }
@@ -59,6 +61,7 @@ namespace Above_All_Beauty_Pageant.Controllers
             return RedirectToAction("Index");
         }
 
+        // method to check if user's age qualifies with age group in which they want to participate in
         public bool CheckIfParticipantCanParticipateInCategory(ParticipantIndexViewModel vm)
         {
             var today = DateTime.UtcNow;
@@ -201,7 +204,7 @@ namespace Above_All_Beauty_Pageant.Controllers
             var participant = _unitOfWork.Participants.GetParticipantById(Id);
 
             participant.Update(vm.EyeColor, vm.FavoriteColor, vm.FavoriteFood, vm.HairColor, vm.Hobbies, vm.Sponsor);
-            if (User.Identity.GetUserId() == participant.UserId)
+            if (User.Identity.GetUserId() == participant.UserId || User.IsInRole("Admin"))
             {
                 _unitOfWork.Complete();
                 return RedirectToAction("ParticipantDetails", new { id = Id } );
@@ -209,6 +212,17 @@ namespace Above_All_Beauty_Pageant.Controllers
 
 
             return View("Index");
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult GetEveryEventsParticipants(string eventName)
+        {
+            if(!User.IsInRole("Admin"))
+                return View("Index");
+
+            return View(new FullEventDetailsViewModel {EventName = eventName , Details = _unitOfWork.Category.GetDetails(eventName) });
         }
     }
 }

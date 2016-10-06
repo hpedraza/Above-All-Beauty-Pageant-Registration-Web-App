@@ -36,7 +36,7 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
         public List<DetailsViewModel> GetDetails(string eventName)
         {
             var categories = _context.Categories
-                .Include(c => c.Participants)
+                .Include(c => c.Participants).Include("Participants.User")
                 .Where(c => c.Event.EventName == eventName)
                 .ToList();
 

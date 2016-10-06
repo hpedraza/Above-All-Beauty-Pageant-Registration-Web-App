@@ -2,11 +2,12 @@
 @{
     ViewBag.Title = "Payment";
 }
-<div class="loader"></div>
+
 <div id="payment-heading">
     <h2 >Payment to register @Model.FirstName</h2>
 </div>
 <div id="payment-container">
+
     <div id="payment-container-item"><a href="https://www.stripe.com"><img src="~/Images/Website Imgs/powered-by-stripe.png" /></a></div>
     @using (Html.BeginForm("Payment", "User", FormMethod.Post, new { id = "payment-form" }))
     {
@@ -109,17 +110,16 @@
 
 
 
-    @section Scripts
+@section Scripts
 {
-        <script>
-            $(document).ready(() => {
+    <script>
+            $(document).ready(function() {
                 let $form = $('#payment-form');
 
 
                 $form.submit((event) => {
-                    console.log($form);
                     // Disable the submit button to prevent repeated clicks:
-         
+
                     if (Stripe.card.validateCardNumber($('#card').val())) {
                         $form.find('.submit').prop('disabled', true);
 
@@ -135,7 +135,7 @@
                 });
 
                 const stripeResponseHandler = (status, response) => {
-                    
+
                     if (response.error) { // Problem!
 
                         // Show the errors on the form:
@@ -157,7 +157,6 @@
                 };
 
                 $('#SubmitFormButton').on('click', () => {
-                    $(".loader").fadeOut("slow");
                     $form.get(0).submit();
                 });
 
@@ -203,6 +202,6 @@
                 });
 
             });
-        </script>
+    </script>
 
-    }
+}

@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Above_All_Beauty_Pageant.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace Above_All_Beauty_Pageant
 {
@@ -19,7 +21,21 @@ namespace Above_All_Beauty_Pageant
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.Host = "mail.aboveallbeautypageant.net";
+            client.EnableSsl = false;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("do_not_reply@aboveallbeautypageant.net", "Steph233_");
+
+            var mail = new MailMessage("do_not_reply@aboveallbeautypageant.net",message.Destination);
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            mail.IsBodyHtml = true;
+
+            return client.SendMailAsync(mail);
         }
     }
 

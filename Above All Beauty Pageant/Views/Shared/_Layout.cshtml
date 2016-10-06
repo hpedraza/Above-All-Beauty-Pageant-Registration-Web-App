@@ -6,9 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
     <link href='https://fonts.googleapis.com/css?family=Dancing+Script:400,700|Comfortaa:400|Lora:400|Quicksand:400' rel='stylesheet' type='text/css'>
-    
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBwTMs_Mm8zCC3kBYNqCv3j_NDP255Jv00&callback=initMap"></script>
+
 
 
     <!-- Stripe.js -->
@@ -18,7 +18,7 @@
     </script>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
+<body>
 
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -31,14 +31,14 @@
                 <a href="~/Home/Index"><img src="~/Images/Website Imgs/logo.png" id="logo" /></a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right "> 
+                <ul class="nav navbar-nav navbar-right"> 
                     @if (Request.IsAuthenticated)
                     {
-                        <li><a href="~/ReRoute/Index">General Information</a></li>
+                        <li class="nav-item"><a href="~/ReRoute/Index">General Information</a></li>
                     }
                     else
                     {
-                        <li><a href="~/Home/Index">General Information</a></li>
+                        <li class="nav-item"><a href="~/Home/Index">General Information</a></li>
                     }
                         
                 </ul>
@@ -55,7 +55,7 @@
             <div>
                 <p>
                     <span>Contact us</span><br />
-                    Phone #: 956-325-6905 <br />
+                    Phone #: 956-223-8844 <br />
                     Location: 5205 S. Veterans Blvd, Edinburg TX <br />
                     Email: aboveallbabypageant@yahoo.com
                 </p>

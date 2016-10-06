@@ -179,7 +179,6 @@ namespace Above_All_Beauty_Pageant.Controllers
 
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
                 + "before you can log in.";

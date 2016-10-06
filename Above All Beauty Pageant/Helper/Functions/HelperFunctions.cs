@@ -24,16 +24,19 @@ namespace Above_All_Beauty_Pageant.Helper.Functions
         public void SendEmailNotification(string email , string participantName)
         {
 
-                SmtpClient client = new SmtpClient();
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.Host = "mail.aboveallbeautypageant.net";
+            client.EnableSsl = false;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("do_not_reply@aboveallbeautypageant.net", "Steph233_");
 
-                // client.Credentials = new NetworkCredential("","");
+            MailMessage mailMessage = new MailMessage("do_not_reply@aboveallbeautypageant.net", email);
+            mailMessage.Subject = string.Format("Thank you for registering {0}", participantName);
+            mailMessage.Body = "Thank you for registering, we look forward to having a fun competitive beauty pageant!";
 
-                MailMessage mailMessage = new MailMessage();
-                mailMessage.To.Add(email);
-                mailMessage.Subject = string.Format("Thank you for registering {0}", participantName);
-                mailMessage.Body = "Reciept and tank you letter.";
-
-                client.Send(mailMessage);
+            client.Send(mailMessage);
 
         }
     }

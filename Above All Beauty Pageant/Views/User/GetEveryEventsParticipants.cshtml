@@ -1,0 +1,51 @@
+﻿@model Above_All_Beauty_Pageant.ViewModels.FullEventDetailsViewModel
+@{
+    ViewBag.Title = "GetEveryEventsParticipants";
+}
+<style>
+    #events-participants{
+        font-size: 19px;
+        font-family: 'Times New Roman';
+    }
+
+    .bold{
+        font-weight: 700;
+    }
+
+    #print-out-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap:wrap;
+    }
+</style>
+
+
+<div id="events-participants">
+    <h2>Event: @Model.EventName</h2>
+
+    @foreach (var detail in Model.Details)
+    {
+        <h3>Category: @detail.CategoryName</h3>
+
+        foreach (var participant in detail.Participants)
+        {
+            <div id="print-out-container">
+                <div><span class="bold">Parents Name</span><p>@participant.User.FirstName @participant.User.LastName</p></div>
+                <div><span class="bold">Contestant Name</span><p>@participant.FirstName @participant.LastName</p></div>
+                <div><span class="bold">Registration#</span><p>@participant.Id</p></div>
+                <div><span class="bold">Date of birth</span><p>@participant.DOB.ToString("MMMM dd, yyyy")</p></div>
+                <div><span class="bold">Hair Color</span><p>@participant.HairColor</p></div>
+                <div><span class="bold">Eye Color</span><p>@participant.EyeColor</p></div>
+                <div><span class="bold">Favorite Food</span><p> @participant.FavoriteFood</p></div>
+                <div><span class="bold">Favorite Color</span><p>@participant.FavoriteColor</p></div>
+                <div><span class="bold">Hobbies</span><p>@participant.Hobbies</p></div>
+                <div><span class="bold">Sponsor:</span><p>@participant.FavoriteColor</p></div>
+
+            </div>
+            <hr />
+        }
+    }
+
+</div>

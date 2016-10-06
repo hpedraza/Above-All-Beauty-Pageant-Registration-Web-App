@@ -2,213 +2,118 @@
 @{
     ViewBag.Title = "Welcome to Above All Beauty Pageant " + User.Identity.Name;
 }
+<div style="background-color: #f2f2f2">
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="admin-container">
+            @using (Html.BeginForm("GetEveryEventsParticipants", "User", FormMethod.Post))
+            {
 
-@if (User.IsInRole("Admin"))
-{
-    <div class="admin-container">
-        @using (Html.BeginForm("", "", ""))
-        {
         <!-- Display events -->
-        @Html.DropDownListFor(m => m.AddParticipant.EventName,
-                      new SelectList(Model.EventNames),
-                      "-- Event to Attend --",
-                      new { @class = "form-control event-drop-down" })
+                @Html.DropDownListFor(m => m.AddParticipant.EventName,
+                       new SelectList(Model.EventNames),
+                       "-- Event to Attend --",
+                       new { @class = "form-control event-drop-down", Name = "eventName" })
 
         <!-- After select, display all categories -->
-        <div class="form-group">
-            @Html.LabelFor(m => m.AddParticipant.AgeGroup)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.AddParticipant.AgeGroup)
 
-            @Html.DropDownListFor(
-                  a => a.AddParticipant.AgeGroup, new SelectList(new List<object> { }), new { @class = "form-control age-group" })
+                    @Html.DropDownListFor(
+               a => a.AddParticipant.AgeGroup, new SelectList(new List<object> { }), new { @class = "form-control age-group" })
 
 
-            @Html.ValidationMessageFor(m => m.AddParticipant.AgeGroup)
-        </div>
-        <input type="button" class="btn btn-primary" id="js-age-group-alrp" value="View Participants" disabled/>
-
+                    @Html.ValidationMessageFor(m => m.AddParticipant.AgeGroup)
+                </div>
+                <input type="button" class="btn btn-primary" id="js-age-group-alrp" value="View Participants" disabled />
+                <input type="submit" class="btn btn-default" value="Print Out" />
         <!-- Display all participants in category -->
-        <table id="ParticipantsTable" class="table table-striped table-hover table-responsive table-condensed">
+                <table id="ParticipantsTable" class="table table-striped table-hover table-responsive table-condensed"></table>
+            }
 
-        </table>
+
+        </div>
+
+
+
+    }
+    else
+    {
+        if (Model.Participants.Count() > 0)
+        {
+            <table id="ParticipantsTable" class="table table-striped table-hover table-responsive table-condensed">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age Group</th>
+                        <th>Event</th>
+                        <th>Registered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var participant in Model.Participants)
+                    {
+                        <tr>
+                            <td>
+                                @participant.FirstName
+                            </td>
+                            <td>
+                                @participant.LastName
+                            </td>
+                            <td>
+                                @participant.AgeGroupDataAnnotation
+                            </td>
+                            <td>
+                                @participant.EventName
+                            </td>
+                            <td>
+                                @if (participant.Paid == false)
+                                {
+                                    using (Html.BeginForm("Payment", "User", FormMethod.Get))
+                                    {
+                                        <input type="hidden" value="@participant.Id" name="id">
+                                        <input type="submit" class="btn btn-success" id="render-payment-form" value="Register" />
+                                        <input type="button" id="js-remove-participant" data-participant="@participant.Id" class="btn btn-danger" value="Remove" />
+                                    }
+
+                                }
+                                else
+                                {
+                                    <div id="forms-container">
+                                        @using (Html.BeginForm("CategoryDetails", "Event", FormMethod.Post))
+                                        {
+                                            @Html.Hidden("AgeGroup", Convert.ToString(participant.AgeGroup))
+                                            @Html.Hidden("EventName", Convert.ToString(participant.EventName));
+                                            @Html.Hidden("Id", Convert.ToString(participant.Id))
+                                            <input type="submit" class="btn btn-primary" data-event="@participant.EventName" value="Event Details" />
+
+                                        }
+                                        @using (Html.BeginForm("ParticipantDetails", "User", FormMethod.Get))
+                                        {
+                                            <input type="hidden" value="@participant.Id" name="id">
+                                            <input type="submit" class="btn btn-default" value="Participant Details" />
+                                        }
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
 
-
-    </div>
-    using (Html.BeginForm("Index", "User", FormMethod.Post, new { id = "add-participant-form" }))
-    {
-
-        @Html.AntiForgeryToken()
-
-        <div class="form-group">
-            <h3>Add Participant</h3>
-            @Html.LabelFor(m => m.AddParticipant.FirstName)
-            @Html.TextBoxFor(m => m.AddParticipant.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.AddParticipant.FirstName)
-        </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.LastName)
-                @Html.TextBoxFor(m => m.AddParticipant.LastName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.LastName)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.DOB)
-                @Html.TextBoxFor(m => m.AddParticipant.DOB, new { @class = "form-control", type = "date" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.DOB)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.HairColor) <br />
-                @Html.TextBoxFor(m => m.AddParticipant.HairColor, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.HairColor)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.EyeColor) <br />
-                @Html.TextBoxFor(m => m.AddParticipant.EyeColor, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.EyeColor)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.FavoriteColor) <br />
-                @Html.TextBoxFor(m => m.AddParticipant.FavoriteColor, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.FavoriteColor)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.FavoriteFood) <br />
-                @Html.TextBoxFor(m => m.AddParticipant.FavoriteFood, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.FavoriteFood)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.Hobbies) <br />
-                @Html.TextBoxFor(m => m.AddParticipant.Hobbies, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.Hobbies)
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.EventName)
-
-                @Html.DropDownListFor(m => m.AddParticipant.EventName,
-                      new SelectList(Model.EventNames),
-                      "-- Event to Attend --",
-                      new { @class = "form-control event-drop-down-list" })
-
-
-                @Html.ValidationMessageFor(m => m.AddParticipant.EventName)
-            </div>
-
-
-
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.Gender) <br />
-                @Html.RadioButtonFor(m => m.AddParticipant.Gender, "Male", new { @checked = "checked" })Male <br />
-                @Html.RadioButtonFor(m => m.AddParticipant.Gender, "Female")Female
-                @Html.ValidationMessageFor(m => m.AddParticipant.Gender)
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.AgeGroup)
-
-                @Html.DropDownListFor(
-                  a => a.AddParticipant.AgeGroup, new SelectList(new List<object> { }), new { @class = "form-control age-group-dropdown" })
-
-
-                @Html.ValidationMessageFor(m => m.AddParticipant.AgeGroup)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddParticipant.Sponsor) <br />
-                @Html.TextBoxFor(m => m.AddParticipant.Sponsor, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddParticipant.Sponsor)
-            </div>
-
-            <input type="submit" class="btn btn-success" id="js-add-participant-button" value="Add Participant" disabled />
     }
 
-
-}
-else
-{
-    if (Model.Participants.Count() > 0)
-    {
-    <table id="ParticipantsTable" class="table table-striped table-hover table-responsive table-condensed">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Age Group</th>
-                <th>Event</th>
-                <th>Registered</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var participant in Model.Participants)
+        <div id="add-participation-container">
+            <div id="age-rules">
+                <p>Boys must be 5 years old or younger to participate.</p>
+                <p>Girls must be 15 years old or younger to participate.</p>
+            </div>
+            @using (Html.BeginForm("Index", "User", FormMethod.Post, new { id = "add-participant-form" }))
             {
-                <tr>
-                    <td>
-                        @participant.FirstName
-                    </td>
-                    <td>
-                        @participant.LastName
-                    </td>
-                    <td>
-                        @participant.AgeGroupDataAnnotation
-                    </td>
-                    <td>
-                        @participant.EventName
-                    </td>
-                    <td>
-                        @if (participant.Paid == false)
-                        {
-                            using (Html.BeginForm("Payment", "User", FormMethod.Get))
-                            {
-                                <input type="hidden" value="@participant.Id" name="id">
-                                <input type="submit" class="btn btn-success" id="render-payment-form" value="Register" />
-                                <input type="button" id="js-remove-participant" data-participant="@participant.Id" class="btn btn-danger" value="Remove" />
-                            }
 
-                        }
-                        else
-                        {
-                            <div id="forms-container">
-                                @using (Html.BeginForm("CategoryDetails", "Event", FormMethod.Post))
-                                {
-                                    @Html.Hidden("AgeGroup", Convert.ToString(participant.AgeGroup))
-                                    @Html.Hidden("EventName", Convert.ToString(participant.EventName));
-                                    @Html.Hidden("Id", Convert.ToString(participant.Id))
-                                    <input type="submit" class="btn btn-primary" data-event="@participant.EventName" value="Event Details" />
-
-                                }
-                                @using (Html.BeginForm("ParticipantDetails", "User", FormMethod.Get))
-                                {
-                                    <input type="hidden" value="@participant.Id" name="id">
-                                    <input type="submit" class="btn btn-default" value="Participant Details" />
-                                }
-                            </div>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-
-
-    <div id="add-participation-container">
-        <div id="age-rules">
-            <p>Boys must be 5 years old or younger to participate.</p>
-            <p>Girls must be 15 years old or younger to participate.</p>
-        </div>
-        @using (Html.BeginForm("Index", "User", FormMethod.Post, new { id = "add-participant-form" }))
-        {
-
-            @Html.AntiForgeryToken()
+                @Html.AntiForgeryToken()
 
             <div class="form-group">
                 <h3>Add Participant</h3>
@@ -265,7 +170,7 @@ else
                 @Html.DropDownListFor(m => m.AddParticipant.EventName,
                       new SelectList(Model.EventNames),
                       "-- Event to Attend --",
-                      new { @class = "form-control event-drop-down-list" })
+                      new { @class = "form-control" , id= "event-drop-down-list" })
 
 
                 @Html.ValidationMessageFor(m => m.AddParticipant.EventName)
@@ -299,36 +204,30 @@ else
             </div>
 
             <input type="submit" class="btn btn-success" id="js-add-participant-button" value="Add Participant" disabled />
-        }
 
-
-    </div>
     <!-- Modal -->
-    <div id="remove-participant" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div id="remove-participant" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Remove Participant?</h4>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Remove Participant?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to remove participant?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="remove-participant-button" class="btn btn-danger" data-dismiss="modal">Remove</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to remove participant?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="remove-participant-button" class="btn btn-danger" data-dismiss="modal">Remove</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+
             </div>
-
         </div>
-    </div>
-
-
-
-}
-
+    }
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 

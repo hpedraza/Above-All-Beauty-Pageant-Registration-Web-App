@@ -53,6 +53,7 @@ namespace Above_All_Beauty_Pageant.Controllers
             var categoryId = _unitOfWork.Category.GetCategoryIdByName(vm.AddParticipant.AgeGroup);
        
             // add participant to event and save if successful
+            
             if (_unitOfWork.Participants.AddParticipant(userId, categoryId, vm.AddParticipant))
             {
                 _unitOfWork.Complete();

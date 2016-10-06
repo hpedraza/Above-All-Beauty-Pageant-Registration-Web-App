@@ -3,7 +3,9 @@
     src: url(../fonts/weblysleekuil.ttf) format('truetype');
 }
 
-
+#cancel-bottom-margin{
+    margin-bottom: 0px;
+}
 
 body {
     padding-top: 30px;
@@ -152,7 +154,7 @@ textarea {
     background-color: #f8EEE7;
     border: 2px solid #94618e;
     padding: 27.25px 25px 25px 25px;
-    margin: 27.25px 25px 25px 25px
+    margin: 0px;
 }
 #about-above-all {
     font-size: 1.43em
@@ -309,7 +311,6 @@ footer > div > a > img {
     #about-above-all {
         font-size: 1.2em;
         font-weight: 700
-
     }
 }
 
@@ -334,11 +335,7 @@ footer > div > a > img {
         border-radius: 2%
     }
 }
-@media screen and (max-width: 569px) {
-    #headquarters {
-        margin: 27.25px 5px 20px 5px
-    }
-}
+
 
 
 

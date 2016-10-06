@@ -5,8 +5,6 @@ namespace Above_All_Beauty_Pageant.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AboveAllContext>
     {
@@ -14,7 +12,6 @@ namespace Above_All_Beauty_Pageant.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
-
 
         protected override void Seed(AboveAllContext context)
         {
@@ -30,27 +27,15 @@ namespace Above_All_Beauty_Pageant.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            /*
-            var Event1Location = new Address
-            {
-                City = "McAllen",
-                ZipCode = 78501,
-                State = "TX",
-                Street = "700 Convention Center Blvd."
-            };
-
-            context.Addresses.AddOrUpdate(a => a.Id, Event1Location);
-            context.SaveChanges();
-                        */
- 
             var date = new DateTime(2016, 10, 29);
-            var Event1 = new Event("Spooktacular Beauty Pageant", 10, date);
 
-            context.Events.AddOrUpdate(x => x.EventName,Event1);
+            var Event1 = new Event("Spooktacular Beauty Pageant",  date);
+
+            context.Events.AddOrUpdate(x => x.EventName, Event1);
             context.SaveChanges();
 
             var eventId = context.Events
-                .FirstOrDefault( e => e.EventName == Event1.EventName).Id;
+                .FirstOrDefault(e => e.EventName == Event1.EventName).Id;
 
             AgeGroup cat1 = AgeGroup.BabyMiss;
             AgeGroup cat2 = AgeGroup.BabyMr;
@@ -65,7 +50,7 @@ namespace Above_All_Beauty_Pageant.Migrations
             AgeGroup cat11 = AgeGroup.YouthMiss;
 
 
-            var eventCategory1 = new EventCategory(cat1 , eventId);
+            var eventCategory1 = new EventCategory(cat1, eventId);
             var eventCategory2 = new EventCategory(cat2, eventId);
             var eventCategory3 = new EventCategory(cat3, eventId);
             var eventCategory4 = new EventCategory(cat4, eventId);
@@ -91,7 +76,6 @@ namespace Above_All_Beauty_Pageant.Migrations
             context.Categories.AddOrUpdate<EventCategory>(eventCategory11);
 
             context.SaveChanges();
-
         }
     }
 }

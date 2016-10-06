@@ -12,11 +12,6 @@ namespace Above_All_Beauty_Pageant.Models
 
         public string EventName { get; private set; }
 
-
-        public Address Location { get; private set; }
-        public int LocationId { get; private set; }
-
-
         public DateTime TimeOfEvent { get; private set; }
 
         public Event()
@@ -24,10 +19,9 @@ namespace Above_All_Beauty_Pageant.Models
 
         }
 
-        public Event(string Name, int AddressId, DateTime Time)
+        public Event(string Name, DateTime Time)
         {
             EventName = Name;
-            LocationId = AddressId;
             TimeOfEvent = Time;
         }
     }

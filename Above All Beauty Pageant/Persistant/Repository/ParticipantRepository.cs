@@ -7,6 +7,8 @@ using System.Data.Entity;
 using Above_All_Beauty_Pageant.Models;
 using Above_All_Beauty_Pageant.ViewModels;
 using Above_All_Beauty_Pageant.Core.Repositories;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace Above_All_Beauty_Pageant.Persistant.Repository
 {
@@ -58,9 +60,18 @@ namespace Above_All_Beauty_Pageant.Persistant.Repository
 
         public bool AddParticipant(string userId , int categoryId, ParticipantViewModel vm)
         {
+            var userStore = new UserStore<ApplicationUser>(_context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
             try
             {
                 var participant = new Participant(vm.FirstName, vm.LastName, vm.Gender, userId , categoryId, vm.DOB, vm.HairColor, vm.EyeColor,vm.FavoriteColor,vm.FavoriteFood, vm.Hobbies,vm.Sponsor);
+
+                if (userManager.IsInRole(userId, "Admin"))
+                {
+                    participant.ParticipantPaid();
+                }
+
                 _context.Participants.Add(participant);
                 return true;
             }
